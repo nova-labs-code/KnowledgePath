@@ -5,6 +5,7 @@ if (!container) {
 } else if (!gradesData || gradesData.length === 0) {
   console.error("gradesData is empty or not loaded!");
 } else {
+
   gradesData.forEach(grade => {
     const gradeDiv = document.createElement("div");
     gradeDiv.classList.add("grade");
@@ -15,10 +16,16 @@ if (!container) {
       subjectDiv.classList.add("subject");
       subjectDiv.innerHTML = `<h3>${subject.name}</h3>`;
 
-      subject.games.forEach(game => {
+      // Ensure every subject has at least one game
+      const games = subject.games && subject.games.length ? subject.games : ["Coming Soon"];
+      games.forEach(game => {
         const btn = document.createElement("button");
         btn.classList.add("game-btn");
         btn.textContent = game;
+
+        // Disable button if it's a Coming Soon placeholder
+        if (game === "Coming Soon") btn.disabled = true;
+
         btn.addEventListener("click", () => launchGame(grade.grade, subject.name, game));
         subjectDiv.appendChild(btn);
       });
