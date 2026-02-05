@@ -1,6 +1,10 @@
 const container = document.getElementById("grades-container");
 
-if (gradesData && container) {
+if (!container) {
+  console.error("No container found for grades!");
+} else if (!gradesData || gradesData.length === 0) {
+  console.error("gradesData is empty or not loaded!");
+} else {
   gradesData.forEach(grade => {
     const gradeDiv = document.createElement("div");
     gradeDiv.classList.add("grade");
@@ -15,7 +19,7 @@ if (gradesData && container) {
         const btn = document.createElement("button");
         btn.classList.add("game-btn");
         btn.textContent = game;
-        btn.onclick = () => launchGame(grade.grade, subject.name, game);
+        btn.addEventListener("click", () => launchGame(grade.grade, subject.name, game));
         subjectDiv.appendChild(btn);
       });
 
@@ -24,6 +28,4 @@ if (gradesData && container) {
 
     container.appendChild(gradeDiv);
   });
-} else {
-  console.error("gradesData not loaded or container missing");
 }
