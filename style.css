@@ -13,22 +13,10 @@ header {
   padding: 20px;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 2.5rem;
-}
+header h1 { margin: 0; font-size: 2.5rem; }
+header p { margin: 5px 0 0 0; font-size: 1.2rem; color: #cbd5e1; }
 
-header p {
-  margin: 5px 0 0 0;
-  font-size: 1.2rem;
-  color: #cbd5e1;
-}
-
-main {
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-}
+main { padding: 20px; max-width: 1200px; margin: auto; }
 
 .grade {
   background-color: #e0e7ff;
@@ -37,20 +25,11 @@ main {
   padding: 15px;
 }
 
-.grade h2 {
-  color: #1e40af;
-  margin-bottom: 10px;
-}
+.grade h2 { color: #1e40af; margin-bottom: 10px; }
 
-.subject {
-  margin-left: 15px;
-  margin-bottom: 15px;
-}
+.subject { margin-left: 15px; margin-bottom: 15px; }
 
-.subject h3 {
-  color: #2563eb;
-  margin-bottom: 8px;
-}
+.subject h3 { color: #2563eb; margin-bottom: 8px; }
 
 .game-btn {
   display: inline-block;
@@ -65,9 +44,7 @@ main {
   transition: 0.2s;
 }
 
-.game-btn:hover {
-  background-color: #2563eb;
-}
+.game-btn:hover { background-color: #2563eb; }
 
 #progress-container {
   width: 90%;
