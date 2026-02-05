@@ -1,8 +1,8 @@
 function launchGame(grade, subject, game) {
-  alert(`Launching: ${grade} → ${subject} → ${game}`);
-  const bar = document.getElementById("progress-bar");
-  const width = Math.floor(Math.random() * 100);
-  bar.style.width = width + "%";
+  if (game === "Coming Soon") return;
 
-  // Future: replace alert with actual interactive games
+  // Placeholder alert for now
+  alert(`Launching: ${grade} → ${subject} → ${game}`);
+  
+  // Future: actual game logic will replace this
 }
