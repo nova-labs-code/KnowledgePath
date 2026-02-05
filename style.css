@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+}
+h1 { text-align: center; color: #4ef; margin-bottom: 40px; }
+.grade { margin-bottom: 50px; }
+.grade h2 { color: #ffa500; margin-bottom: 15px; }
+.subject { margin-left: 20px; margin-bottom: 20px; }
+.subject h3 { color: #0af; margin-bottom: 10px; }
+.game-btn {
+  display: block;
+  margin: 5px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4ef;
+  color: #111;
+  transition: 0.2s;
+}
+.game-btn:hover { background-color: #2ac; color: #fff; }
+#progress-container {
+  width: 100%;
+  max-width: 600px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px auto;
+  height: 20px;
+}
+#progress-bar {
+  width: 0%;
+  height: 100%;
+  background: #4ef;
+  transition: width 0.4s;
+}
