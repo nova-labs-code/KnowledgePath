@@ -3,19 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K–12 Educational Game Hub</title>
+<title>KnowledgePath – K–12 Learning Hub</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>K–12 Interactive Educational Game Hub</h1>
-<div id="grades-container"></div>
+<header>
+  <h1>KnowledgePath</h1>
+  <p>Your Complete K–12 Learning Journey</p>
+</header>
 
-<div id="progress-container">
-  <div id="progress-bar"></div>
-</div>
+<main>
+  <div id="grades-container"></div>
+</main>
 
-<!-- Load all grade/game scripts -->
+<footer>
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+  <p>&copy; 2026 KnowledgePath</p>
+</footer>
+
+<!-- Load scripts -->
 <script src="data/grades.js"></script>
 <script src="scripts/renderGrades.js"></script>
 <script src="scripts/gameHandler.js"></script>
