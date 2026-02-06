@@ -8,7 +8,8 @@
 }
 
 .banner-logo {
-  max-width: 90%;
+  max-width: 500px; /* Limit width so it doesn’t dominate */
+  width: 90%;       /* Responsive on small screens */
   height: auto;
 }
 
