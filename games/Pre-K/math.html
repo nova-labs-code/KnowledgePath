@@ -36,22 +36,14 @@
     border-radius:12px;
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
     padding:20px;
-    max-width:400px;
+    max-width:500px;
     width:100%;
     text-align:center;
   }
-  button {
-    margin-top:10px;
-    padding:8px 12px;
-    background:#ff8c42;
-    color:white;
-    border:none;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
-  }
-  button:hover { background:#e57c24; }
   h2 { color:#ff8c42; }
+  .objects { display:flex; justify-content:center; flex-wrap:wrap; margin-top:10px; }
+  .object { font-size:2em; margin:5px; cursor:pointer; }
+  #message { margin-top:10px; font-weight:bold; color:#ff8c42; }
 </style>
 </head>
 <body>
@@ -65,8 +57,8 @@
   <div id="game-container">
     <h2 id="lesson-title">Lesson</h2>
     <p id="lesson-desc">Loading game...</p>
-    <div id="game-content"></div>
-    <button id="next-btn">Next Question</button>
+    <div id="game-content" class="objects"></div>
+    <div id="message"></div>
   </div>
 </main>
 
@@ -77,87 +69,148 @@ const lessonNumber = parseInt(urlParams.get('lesson')) || 1;
 const lessonTitle = document.getElementById('lesson-title');
 const lessonDesc = document.getElementById('lesson-desc');
 const gameContent = document.getElementById('game-content');
-const nextBtn = document.getElementById('next-btn');
+const message = document.getElementById('message');
 
 lessonTitle.textContent = `Lesson ${lessonNumber}`;
 
-// ---------------- Pre-K Math Game Functions ----------------
+// ---------------- Pre-K Interactive Games ----------------
 const games = [
   {
     name:'Counting Objects',
-    func: (level)=>`Count these ${level} objects: ${'🍎'.repeat(level)}`
+    play: (level)=>{
+      gameContent.innerHTML='';
+      message.textContent='Click on each object to count!';
+      let count = 0;
+      for(let i=0;i<level;i++){
+        const obj = document.createElement('span');
+        obj.className='object';
+        obj.textContent='🍎';
+        obj.addEventListener('click',()=>{
+          count++;
+          obj.style.opacity=0.5;
+          if(count===level){
+            message.textContent='Great! You counted all objects!';
+          }
+        });
+        gameContent.appendChild(obj);
+      }
+    }
   },
   {
     name:'Number Recognition',
-    func: (level)=>`Click on the number: ${level}`
-  },
-  {
-    name:'Match Numbers to Objects',
-    func: (level)=>`Match ${level} objects to the number ${level}`
-  },
-  {
-    name:'Recognize Shapes',
-    func: ()=>`Identify the shapes: 🔺 🔵 ⬛ 🔶`
-  },
-  {
-    name:'Pattern Recognition',
-    func: (level)=>`Complete the pattern: ${'🔴🔵'.repeat(level)}`
+    play: (level)=>{
+      gameContent.innerHTML='';
+      message.textContent='Click the correct number';
+      const correctNumber = level;
+      const numbers = [];
+      while(numbers.length<3){
+        const n = Math.floor(Math.random()*10)+1;
+        if(!numbers.includes(n)) numbers.push(n);
+      }
+      numbers[Math.floor(Math.random()*3)] = correctNumber; // insert correct
+      numbers.forEach(n=>{
+        const btn = document.createElement('span');
+        btn.className='object';
+        btn.textContent=n;
+        btn.addEventListener('click',()=>{
+          if(n===correctNumber){
+            message.textContent='Correct!';
+          } else { message.textContent='Try again!'; }
+        });
+        gameContent.appendChild(btn);
+      });
+    }
   },
   {
     name:'Compare Quantities',
-    func: (level)=>`Which group has more? ${'🍎'.repeat(level)} vs ${'🍎'.repeat(level+1)}`
+    play: (level)=>{
+      gameContent.innerHTML='';
+      const left = level;
+      const right = level+1;
+      message.textContent='Click the group with more';
+      const leftGroup = document.createElement('div');
+      const rightGroup = document.createElement('div');
+      leftGroup.className='object';
+      rightGroup.className='object';
+      leftGroup.textContent='🍎'.repeat(left);
+      rightGroup.textContent='🍎'.repeat(right);
+      leftGroup.addEventListener('click',()=>message.textContent= left>right ? 'Correct!' : 'Try again!');
+      rightGroup.addEventListener('click',()=>message.textContent= right>left ? 'Correct!' : 'Try again!');
+      gameContent.appendChild(leftGroup);
+      gameContent.appendChild(rightGroup);
+    }
   },
   {
-    name:'Sort by Color',
-    func: ()=>`Sort the objects by color: 🔴🟢🔴🟢`
+    name:'Pattern Recognition',
+    play: (level)=>{
+      gameContent.innerHTML='';
+      message.textContent='Click the correct shape to complete the pattern';
+      const pattern = ['🔴','🔵'];
+      for(let i=0;i<level;i++){
+        const span = document.createElement('span');
+        span.className='object';
+        span.textContent=pattern[i%2];
+        gameContent.appendChild(span);
+      }
+      const next = document.createElement('span');
+      next.className='object';
+      next.textContent='?';
+      gameContent.appendChild(next);
+      ['🔴','🔵'].forEach(choice=>{
+        const btn = document.createElement('span');
+        btn.className='object';
+        btn.textContent=choice;
+        btn.addEventListener('click',()=>{
+          if(choice==='🔴') message.textContent='Correct!';
+          else message.textContent='Try again!';
+        });
+        gameContent.appendChild(btn);
+      });
+    }
   },
   {
-    name:'Trace Numbers',
-    func: (level)=>`Trace the numbers 1-${level}`
-  },
-  {
-    name:'Counting & Clicking',
-    func: (level)=>`Click on ${level} stars: ${'⭐'.repeat(level+1)}`
-  },
-  {
-    name:'Match Shapes to Names',
-    func: ()=>`Drag the shape to the correct name: 🔵 Circle`
+    name:'Recognize Shapes',
+    play: ()=>{
+      gameContent.innerHTML='';
+      message.textContent='Click all triangles';
+      ['🔺','🔵','⬛','🔺'].forEach(shape=>{
+        const obj = document.createElement('span');
+        obj.className='object';
+        obj.textContent=shape;
+        obj.addEventListener('click',()=>{
+          if(shape==='🔺') message.textContent='Correct!';
+          else message.textContent='Try another!';
+        });
+        gameContent.appendChild(obj);
+      });
+    }
   }
 ];
 
-// ---------------- Select Game for Lesson ----------------
+// ---------------- Select Game ----------------
 let gameIndex;
 let level = 1;
 
 if(lessonNumber <= 50){
-  // Each game type gets 5 lessons (10 types x 5 = 50)
-  gameIndex = Math.floor((lessonNumber-1)/5);
-  level = ((lessonNumber-1)%5)+1; // 1–5
+  gameIndex = Math.floor((lessonNumber-1)/5); // 5 lessons per game type
+  level = ((lessonNumber-1)%5)+1;
+  if(gameIndex>=games.length) gameIndex = games.length-1;
 } else {
-  // Last 10 lessons = review/testing, random game type and level
-  gameIndex = Math.floor(Math.random()*10);
+  // last 10 lessons = review
+  gameIndex = Math.floor(Math.random()*games.length);
   level = Math.floor(Math.random()*5)+1;
 }
 
 const currentGame = games[gameIndex];
 lessonDesc.textContent = currentGame.name;
 
-// ---------------- Render Game ----------------
+// ---------------- Play Function ----------------
 function loadGame(){
-  // Some functions ignore level parameter
-  const content = currentGame.func(level);
-  gameContent.textContent = content;
+  currentGame.play(level);
 }
 
 // Initial load
 loadGame();
-
-// ---------------- Next Question ----------------
-nextBtn.addEventListener('click', ()=>{
-  // For Pre-K, simply reload the same game with slightly increased intensity
-  if(level < 5) level++;
-  loadGame();
-});
 </script>
 
 </body>
