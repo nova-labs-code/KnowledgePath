@@ -80,5 +80,18 @@ const gradesData = [
     { name: "Science", games: ["Advanced Physics Game", "Environmental Science Quiz"] },
     { name: "English", games: ["Literary Criticism Challenge", "Research Essay Game"] },
     { name: "Social Studies", games: ["Civics Simulation", "Economics Puzzle"] }
+  ]},
+  { grade: "Extra Courses", subjects: [
+    { name: "Art", games: ["Drawing Basics", "Coloring Challenge"] },
+    { name: "Music", games: ["Note Recognition", "Rhythm Practice"] },
+    { name: "Culinary", games: ["Simple Recipes", "Fruit Tasting Game"] },
+    { name: "Health", games: ["Nutrition Basics", "Exercise Fun"] },
+    { name: "Drama", games: ["Acting Faces", "Story Role Play"] },
+    { name: "Computer Science", games: ["Intro Coding", "Logic Puzzles"] },
+    { name: "Internet Safety", games: ["Safe Clicking", "Digital Rules"] },
+    { name: "Foreign Language", games: ["Spanish Basics", "French Basics"] },
+    { name: "Economics", games: ["Money Basics", "Buying & Selling"] },
+    { name: "Philosophy", games: ["Logic Game", "Critical Thinking"] },
+    { name: "Environmental Studies", games: ["Plant Sorting", "Animal Habitats"] }
   ]}
 ];
