@@ -11,7 +11,6 @@ a {
   text-decoration: none;
 }
 
-/* ------------------- Top Bar ------------------- */
 .top-bar {
   position: fixed;
   top: 0;
@@ -20,36 +19,69 @@ a {
   background-color: #007BFF;
   display: flex;
   align-items: center;
-  padding: 10px 10px;
+  padding: 5px 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
-  overflow-x: auto;       /* allow horizontal scrolling */
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 }
 
 /* Logo */
 .top-logo {
   height: 40px;
+  margin-right: 10px;
   flex-shrink: 0;
-  margin-right: 20px;
   cursor: pointer;
+}
+
+/* Scroll wrapper */
+.scroll-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
 }
 
 /* Links container */
 .links-container {
   display: flex;
-  flex-wrap: nowrap;       /* prevent wrapping */
-  gap: 10px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  gap: 8px;
+  padding: 5px 0;
+}
+
+/* Hide native scrollbar */
+.links-container::-webkit-scrollbar { display: none; }
+.links-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Scroll buttons */
+.scroll-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin: 0 5px;
+  user-select: none;
+  transition: background 0.2s;
+}
+.scroll-btn:hover {
+  background: rgba(255,255,255,0.4);
 }
 
 /* Top links */
 .top-link {
   color: #fff;
   font-weight: bold;
-  padding: 8px 15px;
+  padding: 6px 12px;
   border-radius: 5px;
-  white-space: nowrap;     /* prevent text wrapping */
-  flex-shrink: 0;          /* do not shrink */
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: background 0.2s;
 }
 .top-link:hover {
@@ -58,17 +90,18 @@ a {
 
 /* Push content below top bar */
 body > *:not(.top-bar) {
-  margin-top: 70px;
+  margin-top: 60px;
 }
 
-/* Mobile improvements */
+/* Mobile tweaks */
 @media (max-width: 768px) {
-  .top-bar {
-    padding: 8px 5px;
-  }
   .top-link {
-    padding: 6px 10px;
+    padding: 5px 8px;
     font-size: 0.9em;
+  }
+  .scroll-btn {
+    padding: 5px 8px;
+    font-size: 16px;
   }
 }
 
