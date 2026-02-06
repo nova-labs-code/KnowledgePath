@@ -70,7 +70,7 @@ science.innerHTML = `
 [
   { emoji: "🐶", sound: "Dog" },
   { emoji: "🐱", sound: "Cat" },
-  { emoji: "🐦", sound: "Bird" }
+  { emoji: "🦜", sound: "Bird" }
 ].forEach(item => {
   const btn = document.createElement("button");
   btn.textContent = item.emoji;
