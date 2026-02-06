@@ -7,62 +7,17 @@
 <link rel="icon" href="../favicon.ico">
 <link rel="stylesheet" href="../style.css">
 <style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background: #f9f9f9;
-    margin:0;
-    padding:0;
-  }
-  header {
-    background: #ffda9e;
-    text-align:center;
-    padding:20px 10px;
-  }
-  header img {
-    width:180px;
-    margin-bottom:10px;
-  }
-  header h1 {
-    margin:0;
-    font-size:1.8em;
-    color:#333;
-  }
-  main {
-    padding:20px;
-  }
-  .lesson-section {
-    margin-bottom:30px;
-  }
-  .lesson-section h2 {
-    color:#ff8c42;
-    font-size:1.2em;
-    margin-bottom:10px;
-  }
-  .subjects-grid {
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
-    gap:10px;
-  }
-  .subject-card {
-    background:white;
-    border-radius:10px;
-    box-shadow:0 3px 8px rgba(0,0,0,0.1);
-    padding:8px;
-    text-align:center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    font-size:0.9em;
-  }
-  .subject-card:hover {
-    transform: translateY(-3px);
-    box-shadow:0 6px 12px rgba(0,0,0,0.15);
-  }
-  .subject-card a {
-    display:block;
-    text-decoration:none;
-    color:#ff8c42;
-    font-weight:bold;
-    padding:4px 0;
-  }
+  body { font-family: Arial, sans-serif; background: #f9f9f9; margin:0; padding:0; }
+  header { background:#ffda9e; text-align:center; padding:20px 10px; }
+  header img { width:180px; margin-bottom:10px; }
+  header h1 { margin:0; font-size:1.8em; color:#333; }
+  main { padding:20px; }
+  .lesson-section { margin-bottom:30px; }
+  .lesson-section h2 { color:#ff8c42; font-size:1.2em; margin-bottom:10px; }
+  .subjects-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; }
+  .subject-card { background:white; border-radius:10px; box-shadow:0 3px 8px rgba(0,0,0,0.1); padding:8px; text-align:center; transition: transform 0.2s, box-shadow 0.2s; font-size:0.9em; }
+  .subject-card:hover { transform: translateY(-3px); box-shadow:0 6px 12px rgba(0,0,0,0.15); }
+  .subject-card a { display:block; text-decoration:none; color:#ff8c42; font-weight:bold; padding:4px 0; }
 </style>
 </head>
 <body>
@@ -73,22 +28,16 @@
 </header>
 
 <main id="lessons-container">
-  <!-- JS will generate all lessons -->
+  <!-- JS generates lessons and subjects -->
 </main>
 
 <script>
-// Pre-K subjects with very basic topics
-const subjects = [
-  { name: 'Math', folder: 'math' },
-  { name: 'Language', folder: 'language' },
-  { name: 'Science', folder: 'science' },
-  { name: 'Art', folder: 'art' }
-];
+const subjects = ['Math','Language','Science','Art']; // single file per subject
 
 const container = document.getElementById('lessons-container');
 
-// Generate 180 lessons
-for(let lesson=1; lesson<=180; lesson++){
+// 60 lessons total
+for(let lesson=1; lesson<=60; lesson++){
   const lessonSection = document.createElement('div');
   lessonSection.className='lesson-section';
   lessonSection.innerHTML = `<h2>Lesson ${lesson}</h2>`;
@@ -99,7 +48,7 @@ for(let lesson=1; lesson<=180; lesson++){
   subjects.forEach(sub=>{
     const card = document.createElement('div');
     card.className='subject-card';
-    card.innerHTML = `<a href="${sub.folder}/?lesson=${lesson}">${sub.name}</a>`;
+    card.innerHTML = `<a href="${sub}.html?lesson=${lesson}">${sub}</a>`;
     subjectsGrid.appendChild(card);
   });
 
