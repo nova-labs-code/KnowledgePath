@@ -27,26 +27,6 @@ function launchGame(grade, subject, game) {
     "Sentence Builder": playSentenceBuilder,
     "Reading Comprehension": playReadingComprehension1,
 
-    // ========== Grade 2 ==========
-    "Number Bonds": playNumberBonds,
-    "Money Mania": playMoneyMania,
-    "Earth Materials": playEarthMaterials,
-    "Life Cycles": playLifeCycles,
-    "Reading Comprehension": playReadingComprehension2,
-    "Spelling Bee": playSpellingBee,
-    "Local History Quiz": playLocalHistoryQuiz,
-    "Community Explorer": playCommunityExplorer,
-
-    // ========== Grade 3 ==========
-    "Multiplication Challenge": playMultiplicationChallenge,
-    "Fractions Fun": playFractionsFun,
-    "Ecosystem Adventure": playEcosystemAdventure,
-    "Force Explorer": playForceExplorer,
-    "Story Summary": playStorySummary,
-    "Vocabulary Builder": playVocabularyBuilder,
-    "Ancient Civilizations Quiz": playAncientCivilizationsQuiz3,
-    "Timeline Challenge": playTimelineChallenge3,
-
     // ========== Extra Courses ==========
     "Drawing Basics": playDrawingBasics,
     "Coloring Challenge": playDrawingBasics,
