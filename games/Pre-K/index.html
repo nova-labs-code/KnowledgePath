@@ -14,43 +14,41 @@
     <img src="../../logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
   </div>
 
-  <!-- Home button -->
-  <div style="text-align:center; margin: 20px;">
-    <a href="../../index.html">
-      <img src="../../logos/btnLogo.png" alt="Home" style="width:60px; height:auto;">
-    </a>
-  </div>
-
   <h1 style="text-align:center; margin-bottom: 30px;">Pre-K Lessons</h1>
 
-  <!-- Container for lessons -->
   <div id="lessons-container"></div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const totalLessons = 180; // number of Pre-K lessons
+      const totalLessons = 10; // example, expand to 180
       const container = document.getElementById("lessons-container");
 
-      for (let lesson = 1; lesson <= totalLessons; lesson++) {
-        const card = document.createElement("div");
-        card.classList.add("grade-card"); // uses homepage card styles
+      // Subjects
+      const subjects = ["Math", "Language", "Science"];
 
-        const link = document.createElement("a");
-        link.href = `lesson${lesson}.html`; // each lesson page decides which game is played
-        link.classList.add("grade-link");
+      for (let i = 0; i < totalLessons; i++) {
+        const lessonCard = document.createElement("div");
+        lessonCard.classList.add("grade-card");
 
-        const name = document.createElement("h2");
-        name.textContent = `Lesson ${lesson}`;
-        name.classList.add("grade-name");
+        const lessonTitle = document.createElement("h2");
+        lessonTitle.textContent = `Lesson ${i + 1}`;
+        lessonTitle.classList.add("grade-name");
+        lessonCard.appendChild(lessonTitle);
 
-        const desc = document.createElement("p");
-        desc.textContent = "Click to start the lesson and play one of its games.";
-        desc.classList.add("grade-desc");
+        subjects.forEach(subject => {
+          const subjLabel = document.createElement("p");
+          subjLabel.textContent = `${subject}`;
+          subjLabel.classList.add("grade-desc");
+          lessonCard.appendChild(subjLabel);
 
-        link.appendChild(name);
-        link.appendChild(desc);
-        card.appendChild(link);
-        container.appendChild(card);
+          const subjFile = document.createElement("p");
+          subjFile.textContent = `File: lesson${i + 1}.html/?1-60 for ${subject}`;
+          subjFile.style.fontStyle = "italic";
+          subjFile.style.color = "#555";
+          lessonCard.appendChild(subjFile);
+        });
+
+        container.appendChild(lessonCard);
       }
     });
   </script>
