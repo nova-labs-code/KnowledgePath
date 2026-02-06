@@ -171,12 +171,75 @@ function launchGame(grade, subject, game) {
 // ============================
 // PLACEHOLDER FUNCTIONS FOR ALL GAMES
 // ============================
-function playNumberFun() { alert("Number Fun!"); }
-function playShapeExplorer() { alert("Shape Explorer!"); }
-function playAlphabetAdventure() { alert("Alphabet Adventure!"); }
-function playWordMatch() { alert("Word Match!"); }
-function playSensesGame() { alert("Senses Game!"); }
-function playAnimalExplorer() { alert("Animal Explorer!"); }
+function playPreKGame(subject, game) {
+
+  // ---------- MATH ----------
+  if (subject === "Math" && game === "Number Fun") {
+    const num = Math.floor(Math.random() * 5) + 1;
+    const stars = "⭐".repeat(num);
+    const answer = prompt(`Count the stars:\n\n${stars}`);
+    alert(parseInt(answer) === num ? "Correct! 🎉" : `Nice try! It was ${num}`);
+    return;
+  }
+
+  if (subject === "Math" && game === "Shape Explorer") {
+    const shapes = ["Circle", "Square", "Triangle"];
+    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    const answer = prompt(`Guess the shape:\n\nStarts with "${shape[0]}"`);
+    alert(answer?.toLowerCase() === shape.toLowerCase()
+      ? "Correct! 🎉"
+      : `Good try! It was ${shape}`);
+    return;
+  }
+
+  // ---------- LANGUAGE ----------
+  if (subject === "Language" && game === "Alphabet Adventure") {
+    const letter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    const answer = prompt(`What letter is this?\n\n${letter}`);
+    alert(answer?.toUpperCase() === letter
+      ? "Correct! 🎉"
+      : `Nice try! That was ${letter}`);
+    return;
+  }
+
+  if (subject === "Language" && game === "Word Match") {
+    const words = ["cat", "dog", "sun"];
+    const word = words[Math.floor(Math.random() * words.length)];
+    const answer = prompt(`Type this word:\n\n${word}`);
+    alert(answer?.toLowerCase() === word
+      ? "Correct! 🎉"
+      : `Good try! It was "${word}"`);
+    return;
+  }
+
+  // ---------- SCIENCE ----------
+  if (subject === "Science" && game === "Senses Game") {
+    const questions = [
+      { q: "Which sense helps you hear?", a: "hear" },
+      { q: "Which sense helps you smell?", a: "smell" },
+      { q: "Which sense helps you see?", a: "see" }
+    ];
+    const item = questions[Math.floor(Math.random() * questions.length)];
+    const answer = prompt(item.q);
+    alert(answer?.toLowerCase() === item.a
+      ? "Correct! 🎉"
+      : `Nice try! The answer was ${item.a}`);
+    return;
+  }
+
+  if (subject === "Science" && game === "Animal Explorer") {
+    const animals = ["lion", "elephant", "giraffe"];
+    const animal = animals[Math.floor(Math.random() * animals.length)];
+    const answer = prompt(`Guess the animal:\n\nStarts with "${animal[0]}"`);
+    alert(answer?.toLowerCase() === animal
+      ? "Correct! 🎉"
+      : `Good try! It was a ${animal}`);
+    return;
+  }
+
+  // ---------- FALLBACK ----------
+  alert(`${game} is coming soon!`);
+}
 
 function playCountingChallenge() { alert("Counting Challenge!"); }
 function playPatternBuilder() { alert("Pattern Builder!"); }
