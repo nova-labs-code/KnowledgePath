@@ -4,117 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kindergarten Lessons</title>
-
 <link rel="stylesheet" href="style.css">
-
 <style>
-/* lesson container */
-#lesson-container {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  display: none;
-}
-
-/* lesson buttons */
-.lesson-section button {
-  margin: 6px;
-  padding: 14px 18px;
-  font-size: 1.1rem;
-  border-radius: 10px;
-  border: none;
+.back-button {
+  margin-top: 20px;
+  padding: 10px 15px;
   background: #007BFF;
   color: white;
-  cursor: pointer;
-}
-
-.lesson-section button:hover {
-  background: #0056b3;
-}
-
-/* hard refresh button */
-#hard-refresh-btn {
-  display: block;
-  margin: 40px auto 20px auto;
-  padding: 12px 18px;
-  font-size: 1rem;
-  border-radius: 10px;
   border: none;
-  background: #444;
-  color: white;
+  border-radius: 8px;
   cursor: pointer;
 }
+.back-button:hover { background: #0056b3; }
 
-#hard-refresh-btn:hover {
-  background: #222;
+.lesson-section button {
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
 }
+.lesson-section { margin-top: 15px; }
 </style>
 </head>
-
 <body>
 
 <!-- Banner -->
 <div class="banner-container">
-  <img src="logos/bannerLogo.png" class="banner-logo" alt="Knowledge Path">
+  <img src="logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
 </div>
 
 <!-- Lessons List -->
 <div id="grades-container">
   <div class="grade-card">
     <a href="#" class="grade-link" onclick="loadLesson(1); return false;">
-      <div class="grade-name">Lesson 1</div>
-      <div class="grade-desc">Reading • Math • Science</div>
+      <h2 class="grade-name">Lesson 1</h2>
+      <p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p>
     </a>
   </div>
-
-  <!-- duplicate cards up to 180 -->
+  <div class="grade-card">
+    <a href="#" class="grade-link" onclick="loadLesson(2); return false;">
+      <h2 class="grade-name">Lesson 2</h2>
+      <p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p>
+    </a>
+  </div>
+  <!-- Add all lessons up to 180 -->
 </div>
 
-<!-- Lesson Output -->
-<div id="lesson-container"></div>
-
-<!-- Hard Refresh -->
-<button id="hard-refresh-btn">🔄 Reload Page</button>
+<!-- Lesson Container -->
+<div id="lesson-container" style="display:none;"></div>
 
 <script>
-const gradesContainer = document.getElementById("grades-container");
-const lessonContainer = document.getElementById("lesson-container");
+const gradesContainer = document.getElementById('grades-container');
+const lessonContainer = document.getElementById('lesson-container');
 
-/* ---------- LOAD LESSON ---------- */
-function loadLesson(num) {
+function loadLesson(number) {
+  // Hide lesson list
   gradesContainer.style.display = "none";
   lessonContainer.style.display = "block";
-  lessonContainer.innerHTML = "";
+  lessonContainer.innerHTML = ""; // Clear previous content
 
-  // remove old lesson script
-  const oldScript = document.getElementById("lesson-script");
+  // Remove old script if it exists
+  const oldScript = document.getElementById('lesson-script');
   if (oldScript) oldScript.remove();
 
-  // load lesson script
-  const script = document.createElement("script");
-  script.src = `k/lesson${num}.js`;
+  // Create new script
+  const script = document.createElement('script');
+  script.src = `./k/lesson${number}.js`; // <-- Exact path
   script.id = "lesson-script";
+  script.type = "module"; // works on GitHub Pages
   document.body.appendChild(script);
 
-  // back button
-  const backBtn = document.createElement("button");
-  backBtn.textContent = "← Back to Lessons";
-  backBtn.style.marginBottom = "20px";
+  // Back Button
+  const backBtn = document.createElement('button');
+  backBtn.textContent = "← Back to All Lessons";
+  backBtn.className = "back-button";
   backBtn.onclick = () => {
     lessonContainer.style.display = "none";
     gradesContainer.style.display = "flex";
     lessonContainer.innerHTML = "";
-    const s = document.getElementById("lesson-script");
-    if (s) s.remove();
+    if (document.getElementById('lesson-script')) {
+      document.getElementById('lesson-script').remove();
+    }
   };
-
   lessonContainer.appendChild(backBtn);
-}
 
-/* ---------- HARD REFRESH ---------- */
-document.getElementById("hard-refresh-btn").onclick = () => {
-  location.reload();
-};
+  lessonContainer.scrollIntoView({behavior:"smooth"});
+}
 </script>
 
 </body>
