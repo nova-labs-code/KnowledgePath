@@ -38,40 +38,38 @@
   <div class="grade-card">
     <a href="#" class="grade-link" onclick="loadLesson(1); return false;">
       <h2 class="grade-name">Lesson 1</h2>
-      <p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p>
+      <p>Reading: Letters A & B | Math: Counting 1–5 | Science: Animals</p>
     </a>
   </div>
   <div class="grade-card">
     <a href="#" class="grade-link" onclick="loadLesson(2); return false;">
       <h2 class="grade-name">Lesson 2</h2>
-      <p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p>
+      <p>Reading: Letters C & D | Math: Counting 6–10 | Science: Plants</p>
     </a>
   </div>
-  <!-- Repeat for all 180 lessons -->
 </div>
 
 <!-- Lesson Container -->
 <div id="lesson-container" style="display:none;"></div>
 
-<script>
-// References
+<script type="module">
+// Import lesson modules
+import { renderLesson1 } from './k/lesson1.js';
+import { renderLesson2 } from './k/lesson2.js'; // repeat for other lessons
+
 const gradesContainer = document.getElementById('grades-container');
 const lessonContainer = document.getElementById('lesson-container');
 
-// Function to load a lesson
 function loadLesson(number) {
-  // Hide lessons list
   gradesContainer.style.display = "none";
   lessonContainer.style.display = "block";
-  lessonContainer.innerHTML = ""; // clear previous
+  lessonContainer.innerHTML = ""; // clear previous content
 
-  // Load lesson using ES6 module import (works on GitHub Pages)
-  const script = document.createElement('script');
-  script.type = "module";
-  script.src = `./k/lesson${number}.js`; // <-- Exact path
-  lessonContainer.appendChild(script);
+  // Render lesson
+  if(number === 1) renderLesson1(lessonContainer);
+  if(number === 2) renderLesson2(lessonContainer);
 
-  // Add Back Button
+  // Back Button
   const backBtn = document.createElement('button');
   backBtn.textContent = "← Back to All Lessons";
   backBtn.className = "back-button";
@@ -81,6 +79,8 @@ function loadLesson(number) {
     lessonContainer.innerHTML = "";
   };
   lessonContainer.appendChild(backBtn);
+
+  lessonContainer.scrollIntoView({behavior:"smooth"});
 }
 </script>
 
