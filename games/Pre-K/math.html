@@ -4,62 +4,56 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pre-K Math</title>
-<link rel="icon" href="../favicon.ico">
-<link rel="stylesheet" href="../style.css">
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background:#f9f9f9;
+  font-family: system-ui, sans-serif;
+  background:#f6f7fb;
   margin:0;
 }
 
 header {
   background:#ffda9e;
   text-align:center;
-  padding:20px;
-}
-
-main {
-  display:flex;
-  justify-content:center;
-  padding:20px;
+  padding:16px;
+  font-size:1.6em;
+  font-weight:bold;
 }
 
 #game {
-  background:#fff;
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,.1);
-  padding:20px;
-  max-width:420px;
-  width:100%;
+  max-width:520px;
+  margin:20px auto;
+  background:white;
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
+  padding:24px;
   text-align:center;
 }
 
 .objects span {
-  font-size:2.2em;
-  margin:6px;
+  font-size:2.5em;
+  margin:8px;
 }
 
 input {
-  font-size:1.2em;
-  padding:6px;
-  width:80px;
+  font-size:1.3em;
+  padding:8px;
+  width:100px;
   text-align:center;
 }
 
 button {
-  margin-top:10px;
-  padding:8px 14px;
+  margin-top:16px;
+  padding:10px 20px;
+  font-size:1.1em;
   border:none;
-  border-radius:8px;
+  border-radius:12px;
   background:#ff8c42;
-  color:#fff;
-  font-weight:bold;
+  color:white;
+  font-weight:600;
 }
-
-#msg {
-  margin-top:10px;
+#feedback {
+  margin-top:14px;
   font-weight:bold;
 }
 </style>
@@ -67,112 +61,142 @@ button {
 
 <body>
 
-<header>
-  <h1>Pre-K Math</h1>
-</header>
+<header id="title"></header>
 
-<main>
-  <div id="game">
-    <h2 id="title"></h2>
-    <p id="instruction"></p>
-    <div id="content"></div>
-    <div id="msg"></div>
-  </div>
-</main>
+<div id="game">
+  <div id="instruction"></div>
+  <div id="content" class="objects"></div>
+  <div id="controls"></div>
+  <div id="feedback"></div>
+</div>
 
 <script>
+/* ================= LESSON ENGINE ================= */
+
 const lesson = Number(new URLSearchParams(location.search).get("lesson")) || 1;
-document.getElementById("title").textContent = `Lesson ${lesson}`;
+document.getElementById("title").textContent = `Math – Lesson ${lesson}`;
 
-const content = document.getElementById("content");
-const msg = document.getElementById("msg");
 const instruction = document.getElementById("instruction");
+const content = document.getElementById("content");
+const controls = document.getElementById("controls");
+const feedback = document.getElementById("feedback");
 
-const level = Math.min(5, ((lesson - 1) % 5) + 1);
+let question = 0;
+const maxQuestions = 5;
+const level = Math.min(5, Math.ceil(lesson / 10));
 
-// ---------- GAME FUNCTIONS ----------
+/* ================= GAME REGISTRY ================= */
 
-function typingCount() {
-  content.innerHTML = `<div class="objects">${"🍎".repeat(level)}</div>
-    <p>Type how many apples</p>
-    <input id="answer" type="number" />
-    <button onclick="check(${level})">Check</button>`;
-  window.check = (correct) => {
-    msg.textContent =
-      Number(document.getElementById("answer").value) === correct
-        ? "Great job!"
-        : "Try again!";
-  };
-}
+const Games = {
 
-function typingNumber() {
-  content.innerHTML = `
-    <p>Type this number:</p>
-    <div style="font-size:3em">${level}</div>
-    <input id="answer" type="number" />
-    <button onclick="check(${level})">Check</button>`;
-  window.check = (correct) => {
-    msg.textContent =
-      Number(document.getElementById("answer").value) === correct
-        ? "Correct!"
-        : "Try again!";
-  };
-}
+  counting: {
+    start() {
+      instruction.textContent = "Count the objects and type the number";
+      this.next();
+    },
+    next() {
+      question++;
+      content.innerHTML = "";
+      controls.innerHTML = "";
+      feedback.textContent = "";
 
-function compareTyping() {
-  const left = level;
-  const right = level + 1;
-  content.innerHTML = `
-    <div class="objects">
-      ${"⭐".repeat(left)} &nbsp; ${"⭐".repeat(right)}
-    </div>
-    <p>Type which side has more (left or right)</p>
-    <input id="answer" />
-    <button onclick="check()">Check</button>`;
-  window.check = () => {
-    msg.textContent =
-      document.getElementById("answer").value.toLowerCase() === "right"
-        ? "Correct!"
-        : "Try again!";
-  };
-}
+      this.answer = level + Math.floor(Math.random() * 2);
 
-function clickShapes() {
-  instruction.textContent = "Click all the circles";
-  content.innerHTML = "";
-  ["🔵","🔺","🔵","⬛"].forEach(s=>{
-    const el=document.createElement("span");
-    el.textContent=s;
-    el.onclick=()=>msg.textContent=(s==="🔵")?"Good!":"Try another";
-    content.appendChild(el);
-  });
-}
+      for (let i = 0; i < this.answer; i++) {
+        const s = document.createElement("span");
+        s.textContent = "🍎";
+        content.appendChild(s);
+      }
 
-function patternClick() {
-  content.innerHTML = `
-    <div class="objects">🔴 🔵 🔴 🔵 ?</div>
-    <button onclick="msg.textContent='Correct!'">🔴</button>
-    <button onclick="msg.textContent='Try again!'">🔵</button>`;
-}
+      controls.innerHTML = `
+        <input id="input" type="number">
+        <button onclick="check()">Check</button>
+      `;
+    },
+    check() {
+      const val = Number(document.getElementById("input").value);
+      feedback.textContent = val === this.answer ? "Great job!" : "Try again";
+      if (val === this.answer) nextQuestion();
+    }
+  },
 
-// ---------- GAME SELECTION ----------
+  numberTyping: {
+    start() {
+      instruction.textContent = "Type the number you see";
+      this.next();
+    },
+    next() {
+      question++;
+      content.textContent = this.answer = Math.floor(Math.random() * level) + 1;
+      content.style.fontSize = "3em";
+      controls.innerHTML = `
+        <input id="input" type="number">
+        <button onclick="check()">Check</button>
+      `;
+    },
+    check() {
+      const val = Number(document.getElementById("input").value);
+      feedback.textContent = val === this.answer ? "Correct!" : "Try again";
+      if (val === this.answer) nextQuestion();
+    }
+  },
 
-const games = [
-  typingCount,
-  typingNumber,
-  compareTyping,
-  clickShapes,
-  patternClick
+  compare: {
+    start() {
+      instruction.textContent = "Which side has more? Type left or right";
+      this.next();
+    },
+    next() {
+      question++;
+      const left = level;
+      const right = level + 1;
+      this.answer = "right";
+
+      content.innerHTML = `
+        ${"⭐".repeat(left)} &nbsp;&nbsp; ${"⭐".repeat(right)}
+      `;
+
+      controls.innerHTML = `
+        <input id="input">
+        <button onclick="check()">Check</button>
+      `;
+    },
+    check() {
+      const val = document.getElementById("input").value.toLowerCase();
+      feedback.textContent = val === this.answer ? "Nice!" : "Try again";
+      if (val === this.answer) nextQuestion();
+    }
+  }
+
+};
+
+/* ================= LESSON FLOW ================= */
+
+const lessonGames = [
+  "counting",
+  "numberTyping",
+  "compare"
 ];
 
-// 50 lessons learning, 10 review
-const gameIndex =
+const gameName =
   lesson <= 50
-    ? Math.floor((lesson - 1) / 10)
-    : Math.floor(Math.random() * games.length);
+    ? lessonGames[Math.floor((lesson - 1) / 17)]
+    : lessonGames[Math.floor(Math.random() * lessonGames.length)];
 
-instruction.textContent = "Answer the question:";
-games[gameIndex]();
+const game = Games[gameName];
+
+function nextQuestion() {
+  if (question >= maxQuestions) {
+    instruction.textContent = "Lesson Complete!";
+    content.textContent = "🎉";
+    controls.innerHTML = "";
+    return;
+  }
+  game.next();
+}
+
+window.check = () => game.check();
+game.start();
 </script>
 
 </body>
