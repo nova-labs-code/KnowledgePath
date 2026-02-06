@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const link = document.createElement("a");
     link.href = `games/${item.grade.replace(/\s+/g,"")}/index.html`;
-    link.classList.add("grade-link");
+    link.classList;
 
     const gradeName = document.createElement("h2");
     gradeName.textContent = item.grade;
