@@ -1,27 +1,19 @@
 /* Body & layout */
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
+  padding: 0 20px;
   background: #f8f9fa;
+  margin: 0;
 }
 
-/* Title */
-h1 {
-  text-align: center;
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
-
-/* Banner logo styling */
+/* Banner spans full width */
 .banner {
   display: block;
-  margin: 0 auto 30px;
-  max-width: 250px;
-  border-radius: 50%; /* makes circular */
-  overflow: hidden;
-  background: none; /* no CSS background */
+  width: 100%;
+  height: auto; /* maintain aspect ratio */
+  object-fit: cover; /* cover full width nicely */
+  border-radius: 0; /* remove circular effect */
+  margin-bottom: 30px;
 }
 
 /* Grades */
