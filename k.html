@@ -46,7 +46,7 @@
     "Lesson 15: Review & Quiz"
   ];
 
-  const grade = "k"; // use "k" for Kindergarten
+  const gradeFolder = "k"; // Folder for this grade
   const urlParams = new URLSearchParams(window.location.search);
   let lessonIndex = parseInt(urlParams.get('lesson') || "0");
 
@@ -54,7 +54,7 @@
 
   function renderLesson() {
     lessonContainer.textContent = lessons[lessonIndex];
-    loadLessonJS(lessonIndex + 1); // Load grade-lessonX.js
+    loadLessonJS(lessonIndex + 1); // Load lessonX.js from folder
   }
 
   renderLesson();
@@ -77,13 +77,13 @@
     window.history.replaceState({}, '', newUrl);
   }
 
-  // --- Load external JS file for this lesson ---
+  // --- Load lesson JS from grade folder ---
   function loadLessonJS(lessonNumber) {
     const existingScript = document.getElementById('lesson-script');
     if (existingScript) existingScript.remove();
 
     const script = document.createElement('script');
-    script.src = `lessons/${grade}-lesson${lessonNumber}.js`;
+    script.src = `${gradeFolder}/lesson${lessonNumber}.js`;
     script.id = 'lesson-script';
     document.body.appendChild(script);
   }
