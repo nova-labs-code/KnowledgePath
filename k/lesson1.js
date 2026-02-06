@@ -69,12 +69,12 @@ science.innerHTML = `
 `;
 
 [
-  { sound: "Dog" },
-  { sound: "Cat" },
-  { sound: "Bird" }
+  { emoji: "🐶", sound: "Dog" },
+  { emoji: "🐱", sound: "Cat" },
+  { emoji: "🐦", sound: "Bird" }
 ].forEach(item => {
   const btn = document.createElement("button");
-  btn.textContent = "🐾";
+  btn.textContent = item.emoji;
   btn.style.fontSize = "2rem";
   btn.onclick = () => playSound(item.sound);
   science.appendChild(btn);
