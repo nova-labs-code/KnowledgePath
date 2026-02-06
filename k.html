@@ -15,38 +15,20 @@
 
 <!-- Lessons List -->
 <div id="grades-container">
-  <!-- Example: Lessons 1–5 -->
-  <div class="grade-card">
-    <a href="#" class="grade-link" onclick="loadLesson(1); return false;">
-      <h2 class="grade-name">Lesson 1</h2>
-      <p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p>
-    </a>
-  </div>
-  <div class="grade-card">
-    <a href="#" class="grade-link" onclick="loadLesson(2); return false;">
-      <h2 class="grade-name">Lesson 2</h2>
-      <p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p>
-    </a>
-  </div>
-  <div class="grade-card">
-    <a href="#" class="grade-link" onclick="loadLesson(3); return false;">
-      <h2 class="grade-name">Lesson 3</h2>
-      <p>Reading: Simple Words | Math: Shapes | Science: Weather</p>
-    </a>
-  </div>
-  <div class="grade-card">
-    <a href="#" class="grade-link" onclick="loadLesson(4); return false;">
-      <h2 class="grade-name">Lesson 4</h2>
-      <p>Reading: Sight Words | Math: Addition 1–5 | Science: Animals</p>
-    </a>
-  </div>
-  <div class="grade-card">
-    <a href="#" class="grade-link" onclick="loadLesson(5); return false;">
-      <h2 class="grade-name">Lesson 5</h2>
-      <p>Reading: Simple Sentences | Math: Counting | Science: Plants</p>
-    </a>
-  </div>
-  <!-- Add lessons 6–180 the same way -->
+  <!-- Generate 180 lessons manually or via copy/paste -->
+  <!-- Example: Lessons 1–10 -->
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(1); return false;"><h2 class="grade-name">Lesson 1</h2><p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(2); return false;"><h2 class="grade-name">Lesson 2</h2><p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(3); return false;"><h2 class="grade-name">Lesson 3</h2><p>Reading: Simple Words | Math: Shapes | Science: Weather</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(4); return false;"><h2 class="grade-name">Lesson 4</h2><p>Reading: Sight Words | Math: Addition 1–5 | Science: Animals</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(5); return false;"><h2 class="grade-name">Lesson 5</h2><p>Reading: Simple Sentences | Math: Counting | Science: Plants</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(6); return false;"><h2 class="grade-name">Lesson 6</h2><p>Reading: Letters E & F | Math: Count 1–10 | Science: Animals</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(7); return false;"><h2 class="grade-name">Lesson 7</h2><p>Reading: Words & Sentences | Math: Shapes & Patterns | Science: Plants</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(8); return false;"><h2 class="grade-name">Lesson 8</h2><p>Reading: Sight Words | Math: Addition | Science: Weather</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(9); return false;"><h2 class="grade-name">Lesson 9</h2><p>Reading: Letters G & H | Math: Subtraction 1–5 | Science: Animals</p></a></div>
+  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(10); return false;"><h2 class="grade-name">Lesson 10</h2><p>Reading: Simple Sentences | Math: Counting | Science: Plants</p></a></div>
+
+  <!-- Repeat this pattern for lessons 11–180 -->
 </div>
 
 <!-- Lesson Container -->
@@ -59,7 +41,7 @@ const lessonContainer = document.getElementById('lesson-container');
 
 // Load lesson JS dynamically
 function loadLesson(number) {
-  // Hide lessons list
+  // Hide lesson list
   gradesContainer.style.display = "none";
   lessonContainer.style.display = "block";
   lessonContainer.innerHTML = ""; // Clear previous lesson
@@ -70,11 +52,11 @@ function loadLesson(number) {
 
   // Append new lesson JS
   const script = document.createElement('script');
-  script.src = `k/lesson${number}.js`; // Make sure lessons are in /k
+  script.src = `k/lesson${number}.js`;  // <-- Exact JS link
   script.id = "lesson-script";
   document.body.appendChild(script);
 
-  // Back Button
+  // Add Back Button
   const backBtn = document.createElement('button');
   backBtn.textContent = "← Back to All Lessons";
   backBtn.className = "back-button";
@@ -82,6 +64,9 @@ function loadLesson(number) {
     lessonContainer.style.display = "none";
     gradesContainer.style.display = "flex";
     lessonContainer.innerHTML = "";
+    if(document.getElementById('lesson-script')) {
+      document.getElementById('lesson-script').remove();
+    }
   };
   lessonContainer.appendChild(backBtn);
 
