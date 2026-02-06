@@ -40,8 +40,7 @@ math.className = "lesson-section";
 
 math.innerHTML = `
   <h3>Math</h3>
-  <p>Count the apples. Tap a number.</p>
-  <div style="font-size:2rem; margin-bottom:10px;">🍎 🍎 🍎</div>
+  <p>Tap a number to practice counting.</p>
 `;
 
 const numPad = document.createElement("div");
