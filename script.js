@@ -15,20 +15,23 @@ const grades = [
   { name: "Grade 12", link: "grade12.html" }
 ];
 
-// Select the container
 const container = document.getElementById('grades-container');
 
-// Generate cards dynamically
 grades.forEach(grade => {
   const card = document.createElement('div');
   card.className = 'grade-card';
 
+  // Set click event on the whole card
+  card.addEventListener('click', () => {
+    window.location.href = grade.link; // forces same-tab navigation
+  });
+
   const link = document.createElement('a');
   link.className = 'grade-link';
   link.href = grade.link;
-
   link.innerHTML = `<h3 class="grade-name">${grade.name}</h3>`;
 
+  // Optional: still include link for accessibility
   card.appendChild(link);
   container.appendChild(card);
 });
