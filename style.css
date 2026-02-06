@@ -1,57 +1,61 @@
-/* Banner logo */
+/* Banner logo - transparent background */
 .banner-container {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 15px 0;
-  background-color: #f0f0f0;
+  padding: 20px 0;
+  background: transparent; /* no background */
 }
 
 .banner-logo {
-  max-width: 500px; /* Limit width so it doesn’t dominate */
-  width: 90%;       /* Responsive on small screens */
+  max-width: 400px; /* not too huge */
+  width: 90%;
   height: auto;
+  display: block;
 }
 
 /* Grades container */
 #grades-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
-  margin-top: 30px;
-  padding: 10px;
+  margin: 40px 10px 20px 10px;
 }
 
 /* Each grade link */
 .grade-link {
-  flex: 0 0 140px;
+  flex: 0 0 150px;
   text-align: center;
 }
 
-/* Grade buttons */
+/* Professional style grade buttons */
 .grade-btn {
   display: inline-block;
-  padding: 12px 18px;
-  background-color: #007BFF;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
   color: #fff;
+  font-weight: 600;
+  font-size: 1em;
   text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: background 0.2s;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
 }
 
 .grade-btn:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #357ABD, #4A90E2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
 }
 
 /* Mobile tweaks */
 @media (max-width: 600px) {
   .grade-link {
-    flex: 0 0 100px;
+    flex: 0 0 120px;
   }
   .grade-btn {
-    padding: 10px 14px;
+    padding: 12px 16px;
     font-size: 0.9em;
   }
 }
