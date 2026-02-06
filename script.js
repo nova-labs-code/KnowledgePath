@@ -6,17 +6,17 @@ document.querySelectorAll(".game-btn").forEach(btn => {
   });
 });
 
-// Remove.bg integration for banner
+// Remove.bg for banner
 const banner = document.querySelector(".banner");
-const apiKey = "YOUR_REMOVE_BG_API_KEY"; // Replace with your API key
-const imageUrl = banner.src; // original logo
+const apiKey = "YOUR_REMOVE_BG_API_KEY"; // Replace with your actual key
+const imageUrl = banner.src; // current logo image
 
-// Use fetch with FormData (Remove.bg recommends POST with multipart/form-data)
+// Remove.bg expects multipart/form-data
 const formData = new FormData();
 formData.append("image_url", imageUrl);
 formData.append("size", "auto");
-formData.append("format", "png");
 
+// Send POST request
 fetch("https://api.remove.bg/v1.0/removebg", {
   method: "POST",
   headers: {
@@ -24,13 +24,18 @@ fetch("https://api.remove.bg/v1.0/removebg", {
   },
   body: formData
 })
-.then(response => {
-  if (!response.ok) throw new Error("Failed to remove background");
+.then(async response => {
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Remove.bg failed: ${err}`);
+  }
   return response.blob();
 })
 .then(blob => {
+  // Convert the blob to a URL and set as banner src
   const url = URL.createObjectURL(blob);
   banner.src = url;
-  banner.style.borderRadius = "50%"; // make it circular
+  banner.style.borderRadius = "50%"; // make circular
+  banner.style.display = "block";
 })
-.catch(err => console.error("Remove.bg error:", err));
+.catch(err => console.error("Remove.bg API error:", err));
