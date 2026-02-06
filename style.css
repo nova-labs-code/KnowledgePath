@@ -1,22 +1,71 @@
-/* Body & layout */
+/* ==================== Global Styles ==================== */
 body {
   font-family: Arial, sans-serif;
-  padding: 0 20px;
-  background: #f8f9fa;
+  padding: 0;
   margin: 0;
+  background: #f8f9fa;
 }
 
-/* Banner spans full width */
+/* Links and buttons reset */
+a {
+  text-decoration: none;
+}
+
+/* ==================== Top Navigation Bar ==================== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #007BFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+/* Logo in top bar */
+.top-logo {
+  height: 40px;
+}
+
+/* Container for links */
+.links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Top bar links */
+.top-link {
+  color: #fff;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+.top-link:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* Push page content below top bar */
+body > *:not(.top-bar) {
+  margin-top: 70px; /* adjust if top-bar height changes */
+}
+
+/* ==================== Banner ==================== */
 .banner {
   display: block;
   width: 100%;
-  height: auto; /* maintain aspect ratio */
-  object-fit: cover; /* cover full width nicely */
-  border-radius: 0; /* remove circular effect */
+  height: auto;
+  object-fit: cover;
   margin-bottom: 30px;
 }
 
-/* Grades */
+/* ==================== Grades ==================== */
 .grade {
   margin-bottom: 30px;
   border: 2px solid #ccc;
@@ -30,7 +79,7 @@ body {
   text-align: center;
 }
 
-/* Subjects */
+/* ==================== Subjects ==================== */
 .subject {
   margin-bottom: 20px;
 }
@@ -40,7 +89,7 @@ body {
   text-align: center;
 }
 
-/* Game buttons */
+/* ==================== Game Buttons ==================== */
 .game-btn {
   font-size: 1.2em;
   padding: 12px 20px;
@@ -54,15 +103,32 @@ body {
   font-weight: bold;
   display: inline-block;
   text-align: center;
+  transition: background 0.2s;
 }
 .game-btn:hover {
   background-color: #0056b3;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 500px) {
+/* ==================== Mobile Responsiveness ==================== */
+@media (max-width: 600px) {
+  /* Top bar links stack vertically on mobile */
+  .links-container {
+    flex-direction: column;
+    width: 100%;
+  }
+  .top-link {
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Game buttons full width on mobile */
   .game-btn {
     width: 100%;
     margin-bottom: 10px;
+  }
+
+  /* Grades padding adjustment */
+  .grade {
+    padding: 10px;
   }
 }
