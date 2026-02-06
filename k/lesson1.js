@@ -1,80 +1,58 @@
-// Get the container already in k.html
+// This JS runs when the user clicks Lesson 1
 const lessonContainer = document.getElementById('lesson-container');
-lessonContainer.innerHTML = ""; // Clear any previous content
 
-// --- Title ---
+// Add title
 const title = document.createElement('h2');
 title.textContent = "Lesson 1: Letters A & B, Counting 1–5, Animals";
 lessonContainer.appendChild(title);
 
-// --- Reading Section ---
+// Reading Section
 const readingTitle = document.createElement('h3');
 readingTitle.textContent = "Reading: Letters A & B";
 lessonContainer.appendChild(readingTitle);
 
-const readingDesc = document.createElement('p');
-readingDesc.textContent = "Click a letter to hear its sound!";
-lessonContainer.appendChild(readingDesc);
-
 const lettersDiv = document.createElement('div');
-lettersDiv.className = "section-buttons";
-
+lettersDiv.className = "lesson-section";
 ['A','B'].forEach(letter => {
   const btn = document.createElement('button');
   btn.textContent = letter;
-  btn.className = "lesson-button";
-  btn.onclick = () => alert(`You clicked "${letter}"! Its sound is "${letter.toLowerCase()}"`);
+  btn.onclick = () => alert(`You clicked "${letter}"!`);
   lettersDiv.appendChild(btn);
 });
-
 lessonContainer.appendChild(lettersDiv);
 
-// --- Math Section ---
+// Math Section
 const mathTitle = document.createElement('h3');
 mathTitle.textContent = "Math: Count 1–5";
 lessonContainer.appendChild(mathTitle);
 
-const mathDesc = document.createElement('p');
-mathDesc.textContent = "Click the correct number of apples (3 apples):";
-lessonContainer.appendChild(mathDesc);
-
 const mathDiv = document.createElement('div');
-mathDiv.className = "section-buttons";
-
-for(let i = 1; i <= 5; i++){
+mathDiv.className = "lesson-section";
+for(let i=1;i<=5;i++){
   const btn = document.createElement('button');
   btn.textContent = i;
-  btn.className = "lesson-button";
   btn.onclick = () => {
-    if(i === 3) alert("Correct! There are 3 apples 🍎");
+    if(i===3) alert("Correct! There are 3 apples 🍎");
     else alert("Try again!");
   };
   mathDiv.appendChild(btn);
 }
-
 lessonContainer.appendChild(mathDiv);
 
-// --- Science Section ---
-const scienceTitle = document.createElement('h3');
-scienceTitle.textContent = "Science: Identify the Animal";
-lessonContainer.appendChild(scienceTitle);
+// Science Section
+const sciTitle = document.createElement('h3');
+sciTitle.textContent = "Science: Identify the Animal";
+lessonContainer.appendChild(sciTitle);
 
-const scienceDesc = document.createElement('p');
-scienceDesc.textContent = "Click the animal that says 'Meow':";
-lessonContainer.appendChild(scienceDesc);
-
-const animalsDiv = document.createElement('div');
-animalsDiv.className = "section-buttons";
-
-['Dog','Cat','Bird'].forEach(animal => {
-  const btn = document.createElement('button');
-  btn.textContent = animal;
-  btn.className = "lesson-button";
+const sciDiv = document.createElement('div');
+sciDiv.className = "lesson-section";
+['Dog','Cat','Bird'].forEach(animal=>{
+  const btn=document.createElement('button');
+  btn.textContent=animal;
   btn.onclick = () => {
-    if(animal === 'Cat') alert("Correct! Cats say Meow 🐱");
+    if(animal==='Cat') alert("Correct! Cats say Meow 🐱");
     else alert("Try again!");
   };
-  animalsDiv.appendChild(btn);
+  sciDiv.appendChild(btn);
 });
-
-lessonContainer.appendChild(animalsDiv);
+lessonContainer.appendChild(sciDiv);
