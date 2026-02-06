@@ -1,18 +1,11 @@
-/* ==========================
-   INDEX STYLES
-========================== */
+/* --- INDEX STYLES --- */
 .banner-container {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 20px 0;
 }
-
-.banner-logo {
-  max-width: 400px;
-  width: 90%;
-  height: auto;
-}
+.banner-logo { max-width: 400px; width: 90%; height: auto; }
 
 #grades-container {
   display: flex;
@@ -30,28 +23,11 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.grade-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
+.grade-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+.grade-link { display:block; padding:20px; text-decoration:none; color:#333; }
+.grade-name { font-size:1.3em; color:#007BFF; margin:0; font-weight:bold; }
 
-.grade-link {
-  display: block;
-  padding: 20px;
-  text-decoration: none;
-  color: #333;
-}
-
-.grade-name {
-  margin: 0;
-  font-size: 1.3em;
-  font-weight: bold;
-  color: #007BFF;
-}
-
-/* ==========================
-   LESSON STYLES (SCOPED)
-========================== */
+/* --- LESSON STYLES (Scoped to lesson-container) --- */
 #lesson-container {
   margin: 20px auto;
   max-width: 800px;
@@ -61,69 +37,38 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-#lesson-container h2 {
-  color: #007BFF;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#lesson-container h3 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-#lesson-container p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 10px;
-}
+#lesson-container h2 { color:#007BFF; text-align:center; margin-bottom:20px; }
+#lesson-container h3 { color:#333; margin-bottom:10px; }
+#lesson-container p { font-size:1rem; color:#555; margin-bottom:10px; }
 
 #lesson-container .section-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 25px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:25px;
 }
 
-#lesson-container .lesson-button {
+#lesson-container .lesson-button, #lesson-container .back-button {
   padding: 15px 25px;
-  font-size: 1.3rem;
-  margin: 5px;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  background: #007BFF;
-  color: white;
+  font-size:1.3rem;
+  margin:5px;
+  cursor:pointer;
+  border:none;
+  border-radius:8px;
+  background:#007BFF;
+  color:white;
   transition: background 0.2s, transform 0.2s;
 }
 
-#lesson-container .lesson-button:hover {
-  background: #0056b3;
-  transform: translateY(-2px);
-}
-
-#lesson-container .back-button {
-  margin-top: 20px;
-  padding: 12px 20px;
-  background: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-#lesson-container .back-button:hover {
-  background: #0056b3;
+#lesson-container .lesson-button:hover, #lesson-container .back-button:hover {
+  background:#0056b3;
+  transform:translateY(-2px);
 }
 
 /* MOBILE */
-@media (max-width: 600px) {
-  .grade-card { flex: 0 0 140px; }
-  .grade-name { font-size: 1.1em; }
-  #lesson-container { padding: 15px; }
-  #lesson-container .lesson-button, #lesson-container .back-button {
-    padding: 12px 18px;
-    font-size: 1.1rem;
-  }
+@media (max-width:600px){
+  .grade-card { flex:0 0 140px; }
+  .grade-name { font-size:1.1em; }
+  #lesson-container { padding:15px; }
+  #lesson-container .lesson-button, #lesson-container .back-button { padding:12px 18px; font-size:1.1rem; }
 }
