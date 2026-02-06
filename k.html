@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kindergarten - Knowledge Path</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <img src="logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
+</header>
+
+<main class="grade-main">
+  <h2 id="grade-title">Kindergarten</h2>
+  <div id="lesson-container" class="lessons-container"></div>
+
+  <div class="lesson-navigation">
+    <button id="prev-lesson">← Previous</button>
+    <button id="next-lesson">Next →</button>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Back to K–12 Grades</a>
+  </div>
+</main>
+
+<script>
+  // --- Lessons for Kindergarten ---
+  const lessons = [
+    "Lesson 1: Welcome & Introduction",
+    "Lesson 2: Colors & Shapes",
+    "Lesson 3: Alphabet Basics",
+    "Lesson 4: Numbers 1-10",
+    "Lesson 5: Fun Activities"
+  ];
+
+  // --- Get URL parameter for lesson index ---
+  const urlParams = new URLSearchParams(window.location.search);
+  let lessonIndex = parseInt(urlParams.get('lesson') || "0");
+
+  const lessonContainer = document.getElementById('lesson-container');
+
+  function renderLesson() {
+    lessonContainer.textContent = lessons[lessonIndex];
+  }
+
+  renderLesson();
+
+  // --- Navigation buttons ---
+  document.getElementById('prev-lesson').addEventListener('click', () => {
+    if (lessonIndex > 0) lessonIndex--;
+    updateURL();
+    renderLesson();
+  });
+
+  document.getElementById('next-lesson').addEventListener('click', () => {
+    if (lessonIndex < lessons.length - 1) lessonIndex++;
+    updateURL();
+    renderLesson();
+  });
+
+  // --- Update URL without reloading ---
+  function updateURL() {
+    const newUrl = `${window.location.pathname}?lesson=${lessonIndex}`;
+    window.history.replaceState({}, '', newUrl);
+  }
+</script>
+
+</body>
+</html>
