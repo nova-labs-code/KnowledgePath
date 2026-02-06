@@ -2,31 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Number Fun</title>
 <style>
-body { font-family: Arial; text-align: center; padding: 20px; }
-button { margin-top: 10px; padding: 8px 12px; }
+  body { font-family: Arial; text-align: center; padding: 20px; max-width: 500px; margin: auto; }
+  h1 { font-size: 2em; margin-bottom: 10px; }
+  p { font-size: 1.2em; }
+  input { font-size: 1.2em; padding: 8px; width: 50%; }
+  button { font-size: 1.2em; padding: 10px 20px; margin-top: 10px; }
 </style>
 </head>
 <body>
+
 <h1>Number Fun</h1>
-<p id="stars"></p>
-<input type="number" id="answer" placeholder="Type the number">
+<p id="questionText">Get ready!</p>
+<input type="number" id="answer" placeholder="Type number">
 <button id="submitBtn">Submit</button>
 <p id="feedback"></p>
-<button onclick="goBack()">Back to Hub</button>
+<p id="progress"></p>
+<button id="backBtn" style="display:none;" onclick="goBack()">Back to Hub</button>
 
 <script>
-const number = Math.floor(Math.random() * 5) + 1;
-document.getElementById("stars").textContent = "⭐".repeat(number);
+const totalQuestions = 10;
+let currentQuestion = 0;
+let score = 0;
 
-document.getElementById("submitBtn").onclick = () => {
-  const ans = parseInt(document.getElementById("answer").value);
-  document.getElementById("feedback").textContent =
-    ans === number ? "Correct! 🎉" : `Oops! The number was ${number}`;
+const questions = Array.from({length: totalQuestions}, () => Math.floor(Math.random()*5)+1);
+
+const questionText = document.getElementById("questionText");
+const answerInput = document.getElementById("answer");
+const feedback = document.getElementById("feedback");
+const progress = document.getElementById("progress");
+const submitBtn = document.getElementById("submitBtn");
+const backBtn = document.getElementById("backBtn");
+
+function showQuestion() {
+  if (currentQuestion >= totalQuestions) {
+    questionText.textContent = `Game Over! You scored ${score} out of ${totalQuestions}`;
+    answerInput.style.display = "none";
+    submitBtn.style.display = "none";
+    feedback.style.display = "none";
+    progress.style.display = "none";
+    backBtn.style.display = "inline-block";
+    return;
+  }
+
+  questionText.textContent = `Question ${currentQuestion+1}: How many stars are shown?`;
+  const stars = "⭐".repeat(questions[currentQuestion]);
+  feedback.textContent = stars;
+  progress.textContent = `Score: ${score} / ${currentQuestion}`;
+}
+
+submitBtn.onclick = () => {
+  const userAnswer = parseInt(answerInput.value);
+  if (userAnswer === questions[currentQuestion]) score++;
+  currentQuestion++;
+  answerInput.value = "";
+  showQuestion();
 };
 
-function goBack() { window.history.back(); }
+function goBack() {
+  window.history.back();
+}
+
+// Initialize first question
+showQuestion();
 </script>
+
 </body>
 </html>
