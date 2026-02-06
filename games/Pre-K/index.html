@@ -27,30 +27,31 @@
         const lessonCard = document.createElement("div");
         lessonCard.classList.add("grade-card");
 
-        // Lesson link
-        const lessonLink = document.createElement("a");
-        lessonLink.href = `lesson${i + 1}.html`; // lesson handles which game is loaded
-        lessonLink.style.textDecoration = "none";
-        lessonLink.style.color = "inherit";
-
         const lessonTitle = document.createElement("h2");
         lessonTitle.textContent = `Lesson ${i + 1}`;
         lessonTitle.classList.add("grade-name");
-        lessonLink.appendChild(lessonTitle);
-        lessonCard.appendChild(lessonLink);
+        lessonCard.appendChild(lessonTitle);
 
         subjects.forEach(subject => {
+          const lessonNumber = i + 1;
+
+          const subjLink = document.createElement("a");
+          subjLink.href = `${subject.toLowerCase()}.html?lesson=${lessonNumber}`;
+          subjLink.style.textDecoration = "none";
+          subjLink.style.color = "inherit";
+
           const subjLabel = document.createElement("p");
-          subjLabel.textContent = `${subject}`;
+          subjLabel.textContent = subject;
           subjLabel.classList.add("grade-desc");
-          lessonCard.appendChild(subjLabel);
+          subjLink.appendChild(subjLabel);
 
           const subjFile = document.createElement("p");
-          const gameNumber = i + 1; // each lesson gets its own unique game
-          subjFile.textContent = `File: lesson${i + 1}.html/?${subject}=${gameNumber}`;
+          subjFile.textContent = `File: ${subject.toLowerCase()}.html?lesson=${lessonNumber}`;
           subjFile.style.fontStyle = "italic";
           subjFile.style.color = "#555";
-          lessonCard.appendChild(subjFile);
+          subjLink.appendChild(subjFile);
+
+          lessonCard.appendChild(subjLink);
         });
 
         container.appendChild(lessonCard);
