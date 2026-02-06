@@ -3,59 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pre-K Lesson - Math</title>
+  <title>Pre-K Math Lesson</title>
   <link rel="icon" href="../../logos/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../style.css">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="../../logos/btnLogo.png">
 </head>
 <body>
 
-  <!-- Banner logo -->
   <div class="banner-container">
     <img src="../../logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
   </div>
 
-  <h1 style="text-align:center; margin-bottom: 30px;">Pre-K Lesson - Math</h1>
+  <h1 style="text-align:center; margin-bottom: 20px;">Math Lesson</h1>
+  <h2 id="lesson-number" style="text-align:center; margin-bottom: 30px;"></h2>
 
-  <!-- Subject container -->
-  <div id="math-container" class="lesson-subject"></div>
+  <div style="text-align:center;">
+    <button id="start-game-btn" style="padding:15px 30px; font-size:1.2em; cursor:pointer;">
+      Start Game
+    </button>
+  </div>
 
-  <script>
-    // Utility to get query parameter
-    function getQueryNumber() {
-      const params = new URLSearchParams(window.location.search);
-      let num = parseInt(params.get('1')); // ?1=number
-      if (!num || num < 1 || num > 60) num = 1; // default to 1 if invalid
-      return num;
+  <div id="game-container" style="margin-top: 40px;"></div>
+
+  <script type="module">
+    import { mathGames } from "./math.js";
+
+    function getLessonNumber() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const lesson = parseInt(urlParams.get("lesson"));
+      if (!lesson || lesson < 1 || lesson > 180) return 1;
+      return lesson;
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const mathNumber = getQueryNumber();
-      const container = document.getElementById("math-container");
+    const lessonNumber = getLessonNumber();
+    document.getElementById("lesson-number").textContent = `Lesson ${lessonNumber}`;
 
-      // Show info
-      const info = document.createElement("p");
-      info.textContent = `Math Game #${mathNumber} - Click start to play.`;
-      info.classList.add("grade-desc");
-      container.appendChild(info);
+    const startBtn = document.getElementById("start-game-btn");
+    const gameContainer = document.getElementById("game-container");
 
-      // Start Game Button
-      const startBtn = document.createElement("button");
-      startBtn.textContent = "Start Math Game";
-      startBtn.classList.add("game-btn");
+    startBtn.addEventListener("click", () => {
+      gameContainer.innerHTML = "";
+      if (mathGames[lessonNumber]) {
+        mathGames[lessonNumber](gameContainer);
+      } else {
+        gameContainer.textContent = "Game not found!";
+      }
+    });
 
-      startBtn.addEventListener("click", () => {
-        // Dynamically load the JS file for this Math game
-        const script = document.createElement("script");
-        script.src = `math/game${mathNumber}.js`; // e.g., games/Pre-K/math/game1.js
-        script.onload = () => console.log(`Math game ${mathNumber} loaded!`);
-        script.onerror = () => alert("Failed to load the game.");
-        document.body.appendChild(script);
-
-        // Optionally, disable button after start
-        startBtn.disabled = true;
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        window.location.href = link.href;
       });
-
-      container.appendChild(startBtn);
     });
   </script>
 
