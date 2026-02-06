@@ -27,16 +27,26 @@
 </main>
 
 <script>
-  // --- Lessons for Kindergarten ---
+  // --- Kindergarten lessons ---
   const lessons = [
     "Lesson 1: Welcome & Introduction",
     "Lesson 2: Colors & Shapes",
     "Lesson 3: Alphabet Basics",
     "Lesson 4: Numbers 1-10",
-    "Lesson 5: Fun Activities"
+    "Lesson 5: Fun Activities",
+    "Lesson 6: Drawing & Shapes",
+    "Lesson 7: Simple Patterns",
+    "Lesson 8: Story Time",
+    "Lesson 9: Counting Objects",
+    "Lesson 10: Rhymes & Songs",
+    "Lesson 11: Days of the Week",
+    "Lesson 12: Basic Emotions",
+    "Lesson 13: Animals & Sounds",
+    "Lesson 14: Nature Exploration",
+    "Lesson 15: Review & Quiz"
   ];
 
-  // --- Get URL parameter for lesson index ---
+  const grade = "k"; // use "k" for Kindergarten
   const urlParams = new URLSearchParams(window.location.search);
   let lessonIndex = parseInt(urlParams.get('lesson') || "0");
 
@@ -44,11 +54,12 @@
 
   function renderLesson() {
     lessonContainer.textContent = lessons[lessonIndex];
+    loadLessonJS(lessonIndex + 1); // Load grade-lessonX.js
   }
 
   renderLesson();
 
-  // --- Navigation buttons ---
+  // --- Navigation ---
   document.getElementById('prev-lesson').addEventListener('click', () => {
     if (lessonIndex > 0) lessonIndex--;
     updateURL();
@@ -61,10 +72,20 @@
     renderLesson();
   });
 
-  // --- Update URL without reloading ---
   function updateURL() {
     const newUrl = `${window.location.pathname}?lesson=${lessonIndex}`;
     window.history.replaceState({}, '', newUrl);
+  }
+
+  // --- Load external JS file for this lesson ---
+  function loadLessonJS(lessonNumber) {
+    const existingScript = document.getElementById('lesson-script');
+    if (existingScript) existingScript.remove();
+
+    const script = document.createElement('script');
+    script.src = `lessons/${grade}-lesson${lessonNumber}.js`;
+    script.id = 'lesson-script';
+    document.body.appendChild(script);
   }
 </script>
 
