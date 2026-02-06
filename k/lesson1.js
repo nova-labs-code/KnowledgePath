@@ -1,10 +1,10 @@
-// Lesson 1: Interactive example
+// Get the container already in k.html
 const lessonContainer = document.getElementById('lesson-container');
-lessonContainer.innerHTML = ""; // Clear previous
+lessonContainer.innerHTML = ""; // Clear any previous content
 
 // --- Title ---
 const title = document.createElement('h2');
-title.textContent = "Lesson 1: Letters A & B, Counting 1-5, Animals";
+title.textContent = "Lesson 1: Letters A & B, Counting 1–5, Animals";
 lessonContainer.appendChild(title);
 
 // --- Reading Section ---
@@ -41,12 +41,12 @@ lessonContainer.appendChild(mathDesc);
 const mathDiv = document.createElement('div');
 mathDiv.className = "section-buttons";
 
-for(let i=1;i<=5;i++){
+for(let i = 1; i <= 5; i++){
   const btn = document.createElement('button');
   btn.textContent = i;
   btn.className = "lesson-button";
   btn.onclick = () => {
-    if(i===3) alert("Correct! There are 3 apples 🍎");
+    if(i === 3) alert("Correct! There are 3 apples 🍎");
     else alert("Try again!");
   };
   mathDiv.appendChild(btn);
@@ -66,12 +66,12 @@ lessonContainer.appendChild(scienceDesc);
 const animalsDiv = document.createElement('div');
 animalsDiv.className = "section-buttons";
 
-['Dog','Cat','Bird'].forEach(animal=>{
+['Dog','Cat','Bird'].forEach(animal => {
   const btn = document.createElement('button');
   btn.textContent = animal;
   btn.className = "lesson-button";
   btn.onclick = () => {
-    if(animal==='Cat') alert("Correct! Cats say Meow 🐱");
+    if(animal === 'Cat') alert("Correct! Cats say Meow 🐱");
     else alert("Try again!");
   };
   animalsDiv.appendChild(btn);
