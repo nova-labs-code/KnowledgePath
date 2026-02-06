@@ -17,18 +17,20 @@
   ul.lesson-list li:hover { background: #e6f0ff; }
   li h3 { display: inline; color: #007BFF; margin: 0; font-weight: bold; }
   li p { margin: 4px 0 0 0; font-size: 0.9rem; color: #555; }
-  #lesson-container { margin-top: 30px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-  .back-button { margin-top: 20px; padding: 10px 18px; background: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+  #lesson-container { margin-top: 30px; background: #fff; padding: 20px; border-radius: 12px;
+                      box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+  .back-button { margin-top: 20px; padding: 10px 18px; background: #007BFF; color: white;
+                 border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
   .back-button:hover { background: #0056b3; }
 </style>
 </head>
 <body>
 
-<header class="header">
+<header id="header" class="header">
   <img src="logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
 </header>
 
-<main class="grade-main">
+<main id="main-content" class="grade-main">
   <h2>Kindergarten Lessons</h2>
   <ul id="lessons-list" class="lesson-list"></ul>
 
@@ -40,6 +42,8 @@
 const gradeFolder = "k"; // folder for this grade
 const lessonsList = document.getElementById('lessons-list');
 const lessonContainer = document.getElementById('lesson-container');
+const header = document.getElementById('header');
+const mainContent = document.getElementById('main-content');
 
 // --- Generate 180 lessons overview ---
 function generateLessonSubjects(lessonNumber) {
@@ -76,8 +80,11 @@ for (let i = 1; i <= 180; i++) {
 
   // Click loads the static lesson JS dynamically
   li.addEventListener('click', () => {
-    // Hide the list
-    lessonsList.style.display = "none";
+    // Hide everything except lesson container
+    header.style.display = "none";
+    mainContent.style.display = "none";
+
+    // Load the lesson
     loadLessonJS(i);
   });
 
@@ -92,6 +99,11 @@ function loadLessonJS(lessonNumber) {
   const existingScript = document.getElementById('lesson-script');
   if (existingScript) existingScript.remove();
 
+  // Show lesson container full-screen
+  lessonContainer.style.display = "block";
+  lessonContainer.style.margin = "20px auto";
+  lessonContainer.style.maxWidth = "800px";
+
   // Add new script
   const script = document.createElement('script');
   script.src = `${gradeFolder}/lesson${lessonNumber}.js`;
@@ -104,17 +116,15 @@ function loadLessonJS(lessonNumber) {
   backButton.className = "back-button";
   backButton.addEventListener('click', () => {
     lessonContainer.innerHTML = "";
-    lessonsList.style.display = "block";
+    header.style.display = "block";
+    mainContent.style.display = "block";
   });
 
   lessonContainer.appendChild(backButton);
 
-  // Scroll to lesson
+  // Scroll to top
   lessonContainer.scrollIntoView({ behavior: 'smooth' });
 }
-
-// --- Optional: Load first lesson automatically ---
-// loadLessonJS(1);
 </script>
 
 </body>
