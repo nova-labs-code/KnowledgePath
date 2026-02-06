@@ -23,12 +23,17 @@
 <button id="backBtn" style="display:none;" onclick="goBack()">Back to Hub</button>
 
 <script>
-const totalQuestions = 10;
+const totalQuestions = 6;
 let currentQuestion = 0;
 let score = 0;
 
-// Generate 10 numbers (1–10) for questions, can repeat if range < 10
-const questions = Array.from({length: totalQuestions}, () => Math.floor(Math.random() * 10) + 1);
+// Generate numbers 1-10, shuffle, and pick first 6 for unique questions
+const min = 1;
+const max = 10;
+let numbers = [];
+for (let i = min; i <= max; i++) numbers.push(i);
+numbers.sort(() => Math.random() - 0.5);
+const questions = numbers.slice(0, totalQuestions);
 
 const questionText = document.getElementById("questionText");
 const answerInput = document.getElementById("answer");
