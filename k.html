@@ -13,24 +13,81 @@
   <img src="logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
 </div>
 
-<!-- Lesson cards container -->
+<!-- Lessons List -->
 <div id="grades-container">
+  <!-- Example: Lessons 1–5 -->
   <div class="grade-card">
-    <a href="k/lesson1.js" class="grade-link">
+    <a href="#" class="grade-link" onclick="loadLesson(1); return false;">
       <h2 class="grade-name">Lesson 1</h2>
       <p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p>
     </a>
   </div>
-
   <div class="grade-card">
-    <a href="k/lesson2.js" class="grade-link">
+    <a href="#" class="grade-link" onclick="loadLesson(2); return false;">
       <h2 class="grade-name">Lesson 2</h2>
       <p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p>
     </a>
   </div>
-
-  <!-- Add more lessons manually up to 180 -->
+  <div class="grade-card">
+    <a href="#" class="grade-link" onclick="loadLesson(3); return false;">
+      <h2 class="grade-name">Lesson 3</h2>
+      <p>Reading: Simple Words | Math: Shapes | Science: Weather</p>
+    </a>
+  </div>
+  <div class="grade-card">
+    <a href="#" class="grade-link" onclick="loadLesson(4); return false;">
+      <h2 class="grade-name">Lesson 4</h2>
+      <p>Reading: Sight Words | Math: Addition 1–5 | Science: Animals</p>
+    </a>
+  </div>
+  <div class="grade-card">
+    <a href="#" class="grade-link" onclick="loadLesson(5); return false;">
+      <h2 class="grade-name">Lesson 5</h2>
+      <p>Reading: Simple Sentences | Math: Counting | Science: Plants</p>
+    </a>
+  </div>
+  <!-- Add lessons 6–180 the same way -->
 </div>
+
+<!-- Lesson Container -->
+<div id="lesson-container" style="display:none;"></div>
+
+<script>
+// References
+const gradesContainer = document.getElementById('grades-container');
+const lessonContainer = document.getElementById('lesson-container');
+
+// Load lesson JS dynamically
+function loadLesson(number) {
+  // Hide lessons list
+  gradesContainer.style.display = "none";
+  lessonContainer.style.display = "block";
+  lessonContainer.innerHTML = ""; // Clear previous lesson
+
+  // Remove old script if exists
+  const oldScript = document.getElementById('lesson-script');
+  if(oldScript) oldScript.remove();
+
+  // Append new lesson JS
+  const script = document.createElement('script');
+  script.src = `k/lesson${number}.js`; // Make sure lessons are in /k
+  script.id = "lesson-script";
+  document.body.appendChild(script);
+
+  // Back Button
+  const backBtn = document.createElement('button');
+  backBtn.textContent = "← Back to All Lessons";
+  backBtn.className = "back-button";
+  backBtn.onclick = () => {
+    lessonContainer.style.display = "none";
+    gradesContainer.style.display = "flex";
+    lessonContainer.innerHTML = "";
+  };
+  lessonContainer.appendChild(backBtn);
+
+  lessonContainer.scrollIntoView({behavior:"smooth"});
+}
+</script>
 
 </body>
 </html>
