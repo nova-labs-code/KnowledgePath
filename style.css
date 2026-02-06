@@ -11,7 +11,7 @@ a {
   text-decoration: none;
 }
 
-/* ==================== Top Bar ==================== */
+/* Top Bar */
 .top-bar {
   position: fixed;
   top: 0;
@@ -20,17 +20,18 @@ a {
   background-color: #007BFF;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
-  flex-wrap: nowrap; /* keep all links in one row */
-  overflow-x: auto;  /* allow horizontal scroll on small screens */
+  overflow-x: auto; /* allow horizontal scroll */
+  white-space: nowrap; /* prevent wrapping */
 }
 
 /* Logo */
 .top-logo {
   height: 40px;
+  margin-right: 20px;
+  flex-shrink: 0; /* prevent shrinking */
   cursor: pointer;
 }
 
@@ -38,7 +39,8 @@ a {
 .links-container {
   display: flex;
   gap: 10px;
-  flex-wrap: nowrap;
+  flex-wrap: nowrap; /* prevent wrapping */
+  overflow-x: auto;   /* scroll if too wide */
 }
 
 /* Top links */
@@ -48,6 +50,7 @@ a {
   padding: 8px 15px;
   border-radius: 5px;
   white-space: nowrap;
+  flex-shrink: 0; /* prevent shrinking */
   transition: background 0.2s;
 }
 .top-link:hover {
@@ -56,10 +59,10 @@ a {
 
 /* Push content below top bar */
 body > *:not(.top-bar) {
-  margin-top: 70px; /* adjust to top bar height */
+  margin-top: 70px;
 }
 
-/* ==================== Mobile / Scroll ==================== */
+/* Mobile adjustments */
 @media (max-width: 768px) {
   .top-bar {
     padding: 8px 10px;
