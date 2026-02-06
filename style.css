@@ -1,69 +1,176 @@
-/* ================= Header ================= */
+/* ==========================
+   General Body & Fonts
+========================== */
 body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #f4f7f9;
+  padding: 0;
   color: #333;
 }
 
+h2, h3 {
+  margin: 0 0 10px 0;
+}
+
+/* ==========================
+   Header / Banner
+========================== */
 .header {
   text-align: center;
-  padding: 40px 20px 60px;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
+  padding: 20px 0;
 }
 
 .banner-logo {
-  max-width: 180px;
-  width: 30%;
+  max-width: 400px;
+  width: 90%;
   height: auto;
   display: block;
-  margin: 0 auto;
+  margin: auto;
 }
 
-/* ================= Grades Grid ================= */
-.grades-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 25px;
-  max-width: 1100px;
-  margin: -40px auto 60px;
-  padding: 0 20px;
+/* ==========================
+   Grade/Main Container
+========================== */
+.grade-main {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
-/* ================= Grade Card ================= */
-.grade-card {
+/* ==========================
+   Lesson List
+========================== */
+ul.lesson-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.lesson-list li {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-  text-align: center;
-  padding: 40px 20px;
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
-.grade-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 28px rgba(0,0,0,0.15);
+ul.lesson-list li:hover {
+  background: #e6f0ff;
+  transform: translateY(-2px);
 }
 
-/* Grade link / text */
-.grade-link {
-  text-decoration: none;
+ul.lesson-list li h3 {
+  display: inline;
   color: #007BFF;
+  margin-right: 10px;
+}
+
+ul.lesson-list li p {
+  margin: 4px 0 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* ==========================
+   Lesson Container
+========================== */
+#lesson-container {
+  margin: 20px auto;
+  max-width: 800px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   display: block;
 }
 
-.grade-name {
-  font-size: 1.25rem;
-  font-weight: 600;
+/* Lesson Title and Section Headers */
+#lesson-container h2 {
+  color: #007BFF;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* ================= Responsive ================= */
-@media (max-width: 768px) {
-  .header {
-    padding: 30px 15px 50px;
+#lesson-container h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Description Paragraphs */
+#lesson-container p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* ==========================
+   Buttons (Reading, Math, Science)
+========================== */
+.lesson-button {
+  padding: 15px 25px;
+  font-size: 1.3rem;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background: #007BFF;
+  color: white;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.lesson-button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Section Buttons Container */
+.section-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+/* ==========================
+   Back Button
+========================== */
+.back-button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.back-button:hover {
+  background: #0056b3;
+}
+
+/* ==========================
+   Responsive / Mobile
+========================== */
+@media (max-width: 600px) {
+  .grade-main {
+    padding: 10px;
   }
-  .grade-card {
-    padding: 30px 15px;
+
+  .lesson-button, .back-button {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+  }
+
+  ul.lesson-list li {
+    padding: 10px 12px;
+  }
+
+  #lesson-container {
+    padding: 15px;
   }
 }
