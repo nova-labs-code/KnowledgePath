@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- Banner logo -->
   <div class="banner-container">
     <img src="../../logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
   </div>
@@ -20,20 +19,25 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const totalLessons = 10; // example, expand to 180
-      const container = document.getElementById("lessons-container");
-
-      // Subjects
+      const totalLessons = 180;
       const subjects = ["Math", "Language", "Science"];
+      const container = document.getElementById("lessons-container");
 
       for (let i = 0; i < totalLessons; i++) {
         const lessonCard = document.createElement("div");
         lessonCard.classList.add("grade-card");
 
+        // Lesson link
+        const lessonLink = document.createElement("a");
+        lessonLink.href = `lesson${i + 1}.html`; // lesson handles which game is loaded
+        lessonLink.style.textDecoration = "none";
+        lessonLink.style.color = "inherit";
+
         const lessonTitle = document.createElement("h2");
         lessonTitle.textContent = `Lesson ${i + 1}`;
         lessonTitle.classList.add("grade-name");
-        lessonCard.appendChild(lessonTitle);
+        lessonLink.appendChild(lessonTitle);
+        lessonCard.appendChild(lessonLink);
 
         subjects.forEach(subject => {
           const subjLabel = document.createElement("p");
@@ -42,7 +46,8 @@
           lessonCard.appendChild(subjLabel);
 
           const subjFile = document.createElement("p");
-          subjFile.textContent = `File: lesson${i + 1}.html/?1-60 for ${subject}`;
+          const gameNumber = i + 1; // each lesson gets its own unique game
+          subjFile.textContent = `File: lesson${i + 1}.html/?${subject}=${gameNumber}`;
           subjFile.style.fontStyle = "italic";
           subjFile.style.color = "#555";
           lessonCard.appendChild(subjFile);
