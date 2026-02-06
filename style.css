@@ -1,14 +1,52 @@
-body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; background: #f8f9fa; }
-h1 { text-align: center; font-size: 2.5em; margin-bottom: 10px; }
-.banner { display: block; margin: 0 auto 30px; max-width: 250px; background: none; }
+/* Body & layout */
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  background: #f8f9fa;
+}
+
+/* Title */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+/* Banner logo styling */
+.banner {
+  display: block;
+  margin: 0 auto 30px;
+  max-width: 250px;
+  border-radius: 50%; /* makes circular */
+  overflow: hidden;
+  background: none; /* no CSS background */
+}
 
 /* Grades */
-.grade { margin-bottom: 30px; border: 2px solid #ccc; padding: 15px; border-radius: 12px; background: #fff; }
-.grade h2 { font-size: 1.8em; margin-bottom: 15px; text-align: center; }
+.grade {
+  margin-bottom: 30px;
+  border: 2px solid #ccc;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fff;
+}
+.grade h2 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  text-align: center;
+}
 
 /* Subjects */
-.subject { margin-bottom: 20px; }
-.subject h3 { margin-bottom: 10px; font-size: 1.4em; text-align: center; }
+.subject {
+  margin-bottom: 20px;
+}
+.subject h3 {
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  text-align: center;
+}
 
 /* Game buttons */
 .game-btn {
@@ -22,9 +60,17 @@ h1 { text-align: center; font-size: 2.5em; margin-bottom: 10px; }
   background-color: #007BFF;
   color: #fff;
   font-weight: bold;
+  display: inline-block;
+  text-align: center;
 }
-.game-btn:hover { background-color: #0056b3; }
+.game-btn:hover {
+  background-color: #0056b3;
+}
 
+/* Mobile responsiveness */
 @media (max-width: 500px) {
-  .game-btn { width: 100%; margin-bottom: 10px; }
+  .game-btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
