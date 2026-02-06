@@ -1,76 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pre-K Lessons - Knowledge Path</title>
-  <link rel="icon" href="../../logos/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="../../style.css">
-
-  <!-- Home Screen setup -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="../../logos/btnLogo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-K Lessons</title>
+<link rel="icon" href="../favicon.ico">
+<link rel="stylesheet" href="../style.css">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #f9f9f9;
+    margin:0;
+    padding:0;
+  }
+  header {
+    background: #ffda9e;
+    text-align:center;
+    padding: 20px 10px;
+  }
+  header img {
+    width: 180px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  header h1 {
+    margin:0;
+    font-size:1.8em;
+    color: #333;
+  }
+  main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  .lesson-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .lesson-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+  }
+  .lesson-card h2 {
+    margin-top:0;
+    font-size:1.2em;
+    color:#ff8c42;
+  }
+  .lesson-card p {
+    font-size:0.9em;
+    color:#555;
+    margin: 5px 0 0 0;
+  }
+  .lesson-card a {
+    display:block;
+    margin-top:10px;
+    text-align:center;
+    text-decoration:none;
+    background:#ff8c42;
+    color:white;
+    padding:8px;
+    border-radius:8px;
+    font-weight:bold;
+  }
+  .lesson-card a:hover {
+    background:#e57c24;
+  }
+</style>
 </head>
 <body>
 
-  <div class="banner-container">
-    <img src="../../logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
+<header>
+  <img src="../bannerLogo.png" alt="Pre-K Logo">
+  <h1>Pre-K Lessons</h1>
+</header>
+
+<main>
+  <!-- Example lesson card -->
+  <div class="lesson-card">
+    <h2>Math</h2>
+    <p>Learn counting, number recognition, addition & subtraction.</p>
+    <p>Recommended: 15–20 min per lesson</p>
+    <a href="math.html">Go to Math Lessons</a>
   </div>
 
-  <h1 style="text-align:center; margin-bottom: 30px;">Pre-K Lessons</h1>
+  <div class="lesson-card">
+    <h2>Language</h2>
+    <p>Explore letters, phonics, and simple words.</p>
+    <p>Recommended: 10–15 min per lesson</p>
+    <a href="language.html">Go to Language Lessons</a>
+  </div>
 
-  <div id="lessons-container"></div>
+  <div class="lesson-card">
+    <h2>Science</h2>
+    <p>Discover colors, shapes, animals, and nature.</p>
+    <p>Recommended: 10–15 min per lesson</p>
+    <a href="science.html">Go to Science Lessons</a>
+  </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const totalLessons = 180;
-      const subjects = ["Math", "Language", "Science"];
-      const container = document.getElementById("lessons-container");
-
-      for (let i = 0; i < totalLessons; i++) {
-        const lessonCard = document.createElement("div");
-        lessonCard.classList.add("grade-card");
-
-        const lessonTitle = document.createElement("h2");
-        lessonTitle.textContent = `Lesson ${i + 1}`;
-        lessonTitle.classList.add("grade-name");
-        lessonCard.appendChild(lessonTitle);
-
-        subjects.forEach(subject => {
-          const lessonNumber = i + 1;
-
-          const subjLink = document.createElement("a");
-          subjLink.href = `${subject.toLowerCase()}.html?lesson=${lessonNumber}`;
-          subjLink.style.textDecoration = "none";
-          subjLink.style.color = "inherit";
-
-          const subjLabel = document.createElement("p");
-          subjLabel.textContent = subject;
-          subjLabel.classList.add("grade-desc");
-          subjLink.appendChild(subjLabel);
-
-          const subjFile = document.createElement("p");
-          subjFile.textContent = `File: ${subject.toLowerCase()}.html?lesson=${lessonNumber}`;
-          subjFile.style.fontStyle = "italic";
-          subjFile.style.color = "#555";
-          subjLink.appendChild(subjFile);
-
-          lessonCard.appendChild(subjLink);
-        });
-
-        container.appendChild(lessonCard);
-      }
-
-      // Stay inside Home Screen app
-      document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          window.location.href = link.href;
-        });
-      });
-    });
-  </script>
+  <div class="lesson-card">
+    <h2>Art & Creativity</h2>
+    <p>Fun drawing, colors, and creative activities.</p>
+    <p>Recommended: 10–20 min per lesson</p>
+    <a href="art.html">Go to Art Lessons</a>
+  </div>
+</main>
 
 </body>
 </html>
