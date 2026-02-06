@@ -1,4 +1,4 @@
-// All buttons navigate to their game HTML page
+// All buttons navigate to their respective game HTML pages
 document.querySelectorAll(".game-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const link = btn.getAttribute("data-link");
