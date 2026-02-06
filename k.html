@@ -3,88 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kindergarten - Knowledge Path</title>
+<title>Kindergarten Lessons</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header id="header" class="header">
+<!-- Banner -->
+<div class="banner-container">
   <img src="logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
-</header>
+</div>
 
-<main id="main-content" class="grade-main">
-  <h2>Kindergarten Lessons</h2>
-  <ul id="lessons-list" class="lesson-list"></ul>
+<!-- Lesson cards container -->
+<div id="grades-container">
+  <div class="grade-card">
+    <a href="k/lesson1.js" class="grade-link">
+      <h2 class="grade-name">Lesson 1</h2>
+      <p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p>
+    </a>
+  </div>
 
-  <!-- Lesson content will be loaded here -->
-  <div id="lesson-container"></div>
-</main>
+  <div class="grade-card">
+    <a href="k/lesson2.js" class="grade-link">
+      <h2 class="grade-name">Lesson 2</h2>
+      <p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p>
+    </a>
+  </div>
 
-<script>
-// References
-const lessonsList = document.getElementById('lessons-list');
-const lessonContainer = document.getElementById('lesson-container');
-const header = document.getElementById('header');
-const mainContent = document.getElementById('main-content');
-
-// --- Generate 180 lessons ---
-function generateLessonSubjects(n) {
-  // Simple example for Kindergarten progression
-  if (n < 20) return {reading: "Letters A & B", math: "Counting 1-5", science: "Animals & plants"};
-  if (n < 40) return {reading: "Sight words", math: "Simple addition", science: "Weather & seasons"};
-  if (n < 60) return {reading: "Simple sentences", math: "Shapes & patterns", science: "Magnets & water"};
-  return {reading: "Stories & writing", math: "Measurements", science: "Senses & habitats"};
-}
-
-// --- Populate lesson list ---
-for (let i = 1; i <= 180; i++) {
-  const subjects = generateLessonSubjects(i);
-
-  const li = document.createElement('li');
-  li.innerHTML = `<h3>Lesson ${i}</h3>
-                  <p><strong>Reading:</strong> ${subjects.reading}<br>
-                     <strong>Math:</strong> ${subjects.math}<br>
-                     <strong>Science:</strong> ${subjects.science}</p>`;
-
-  li.addEventListener('click', () => {
-    // Hide everything except lesson
-    header.style.display = "none";
-    mainContent.style.display = "none";
-
-    // Load lesson JS
-    loadLessonJS(i);
-  });
-
-  lessonsList.appendChild(li);
-}
-
-// --- Load lesson script ---
-function loadLessonJS(lessonNumber) {
-  lessonContainer.innerHTML = ""; // Clear previous
-
-  // Remove old script
-  const oldScript = document.getElementById('lesson-script');
-  if (oldScript) oldScript.remove();
-
-  const script = document.createElement('script');
-  script.src = `k/lesson${lessonNumber}.js`; // Correct path since lessons are in /k
-  script.id = "lesson-script";
-  document.body.appendChild(script);
-
-  // Back button
-  const backButton = document.createElement('button');
-  backButton.textContent = "← Back to All Lessons";
-  backButton.className = "back-button";
-  backButton.onclick = () => {
-    lessonContainer.innerHTML = "";
-    header.style.display = "block";
-    mainContent.style.display = "block";
-  };
-
-  lessonContainer.appendChild(backButton);
-  lessonContainer.scrollIntoView({behavior:"smooth"});
-}
-</script>
+  <!-- Add more lessons manually up to 180 -->
+</div>
 
 </body>
 </html>
