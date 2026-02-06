@@ -8,15 +8,15 @@
   body { font-family: Arial; text-align: center; padding: 20px; max-width: 500px; margin: auto; }
   h1 { font-size: 2em; margin-bottom: 10px; }
   p { font-size: 1.2em; }
-  input { font-size: 1.2em; padding: 8px; width: 50%; }
-  button { font-size: 1.2em; padding: 10px 20px; margin-top: 10px; }
+  input { font-size: 1.5em; padding: 10px; width: 60%; }
+  button { font-size: 1.5em; padding: 12px 24px; margin-top: 10px; }
 </style>
 </head>
 <body>
 
 <h1>Number Fun</h1>
 <p id="questionText">Get ready!</p>
-<input type="number" id="answer" placeholder="Type number">
+<input type="number" inputmode="numeric" id="answer" placeholder="Type number">
 <button id="submitBtn">Submit</button>
 <p id="feedback"></p>
 <p id="progress"></p>
@@ -27,7 +27,12 @@ const totalQuestions = 10;
 let currentQuestion = 0;
 let score = 0;
 
-const questions = Array.from({length: totalQuestions}, () => Math.floor(Math.random()*5)+1);
+// Generate 10 unique numbers (1-5, no repeats)
+const numbersSet = new Set();
+while(numbersSet.size < totalQuestions) {
+  numbersSet.add(Math.floor(Math.random() * 5) + 1);
+}
+const questions = Array.from(numbersSet);
 
 const questionText = document.getElementById("questionText");
 const answerInput = document.getElementById("answer");
@@ -38,7 +43,7 @@ const backBtn = document.getElementById("backBtn");
 
 function showQuestion() {
   if (currentQuestion >= totalQuestions) {
-    questionText.textContent = `Game Over! You scored ${score} out of ${totalQuestions}`;
+    questionText.textContent = `🎉 Game Over! You scored ${score} / ${totalQuestions}`;
     answerInput.style.display = "none";
     submitBtn.style.display = "none";
     feedback.style.display = "none";
@@ -47,8 +52,8 @@ function showQuestion() {
     return;
   }
 
-  questionText.textContent = `Question ${currentQuestion+1}: How many stars are shown?`;
   const stars = "⭐".repeat(questions[currentQuestion]);
+  questionText.textContent = `Question ${currentQuestion + 1}: How many stars are shown?`;
   feedback.textContent = stars;
   progress.textContent = `Score: ${score} / ${currentQuestion}`;
 }
@@ -65,7 +70,7 @@ function goBack() {
   window.history.back();
 }
 
-// Initialize first question
+// Start the game
 showQuestion();
 </script>
 
