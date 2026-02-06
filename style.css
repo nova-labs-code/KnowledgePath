@@ -1,61 +1,81 @@
-/* Banner logo - transparent background */
+/* Banner logo */
 .banner-container {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 20px 0;
-  background: transparent; /* no background */
+  background: transparent;
 }
 
 .banner-logo {
-  max-width: 400px; /* not too huge */
+  max-width: 400px;
   width: 90%;
   height: auto;
   display: block;
 }
 
-/* Grades container */
+/* Grades container grid */
 #grades-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 20px;
   justify-content: center;
   margin: 40px 10px 20px 10px;
 }
 
-/* Each grade link */
+/* Grade card */
+.grade-card {
+  flex: 0 0 200px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.grade-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* Link inside card */
 .grade-link {
-  flex: 0 0 150px;
-  text-align: center;
-}
-
-/* Professional style grade buttons */
-.grade-btn {
-  display: inline-block;
-  padding: 14px 20px;
-  background: linear-gradient(135deg, #4A90E2, #357ABD);
-  color: #fff;
-  font-weight: 600;
-  font-size: 1em;
+  display: block;
+  padding: 20px;
   text-decoration: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-  transition: all 0.2s ease;
+  color: #333;
 }
 
-.grade-btn:hover {
-  background: linear-gradient(135deg, #357ABD, #4A90E2);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+/* Grade name */
+.grade-name {
+  margin: 0 0 10px 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #007BFF;
+}
+
+/* Description */
+.grade-desc {
+  margin: 0 0 8px 0;
+  font-size: 0.95em;
+  color: #555;
+}
+
+/* Duration */
+.grade-duration {
+  margin: 0;
+  font-size: 0.85em;
+  color: #888;
 }
 
 /* Mobile tweaks */
 @media (max-width: 600px) {
-  .grade-link {
-    flex: 0 0 120px;
+  .grade-card {
+    flex: 0 0 140px;
   }
-  .grade-btn {
-    padding: 12px 16px;
-    font-size: 0.9em;
+  .grade-name {
+    font-size: 1.1em;
+  }
+  .grade-desc, .grade-duration {
+    font-size: 0.8em;
   }
 }
