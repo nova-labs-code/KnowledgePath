@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-K Lesson - Math</title>
+  <link rel="icon" href="../../logos/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+  <!-- Banner logo -->
+  <div class="banner-container">
+    <img src="../../logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
+  </div>
+
+  <h1 style="text-align:center; margin-bottom: 30px;">Pre-K Lesson - Math</h1>
+
+  <!-- Subject container -->
+  <div id="math-container" class="lesson-subject"></div>
+
+  <script>
+    // Utility to get query parameter
+    function getQueryNumber() {
+      const params = new URLSearchParams(window.location.search);
+      let num = parseInt(params.get('1')); // ?1=number
+      if (!num || num < 1 || num > 60) num = 1; // default to 1 if invalid
+      return num;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const mathNumber = getQueryNumber();
+      const container = document.getElementById("math-container");
+
+      // Show info
+      const info = document.createElement("p");
+      info.textContent = `Math Game #${mathNumber} - Click start to play.`;
+      info.classList.add("grade-desc");
+      container.appendChild(info);
+
+      // Start Game Button
+      const startBtn = document.createElement("button");
+      startBtn.textContent = "Start Math Game";
+      startBtn.classList.add("game-btn");
+
+      startBtn.addEventListener("click", () => {
+        // Dynamically load the JS file for this Math game
+        const script = document.createElement("script");
+        script.src = `math/game${mathNumber}.js`; // e.g., games/Pre-K/math/game1.js
+        script.onload = () => console.log(`Math game ${mathNumber} loaded!`);
+        script.onerror = () => alert("Failed to load the game.");
+        document.body.appendChild(script);
+
+        // Optionally, disable button after start
+        startBtn.disabled = true;
+      });
+
+      container.appendChild(startBtn);
+    });
+  </script>
+
+</body>
+</html>
