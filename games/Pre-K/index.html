@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pre-K Lessons</title>
+<title>Pre-K Math Lesson</title>
 <link rel="icon" href="../favicon.ico">
 <link rel="stylesheet" href="../style.css">
 <style>
@@ -12,9 +12,12 @@
     background: #f9f9f9;
     margin:0;
     padding:0;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
   }
   header {
-    background: #ffda9e;
+    background:#ffda9e;
     text-align:center;
     padding:20px 10px;
   }
@@ -28,84 +31,103 @@
     color:#333;
   }
   main {
+    flex:1;
     padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
   }
-  .lesson-section {
-    margin-bottom:30px;
-  }
-  .lesson-section h2 {
-    color:#ff8c42;
-    font-size:1.2em;
-    margin-bottom:10px;
-  }
-  .subjects-grid {
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
-    gap:10px;
-  }
-  .subject-card {
+  #game-container {
     background:white;
-    border-radius:10px;
-    box-shadow:0 3px 8px rgba(0,0,0,0.1);
-    padding:8px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    padding:20px;
+    max-width:400px;
+    width:100%;
     text-align:center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    font-size:0.9em;
   }
-  .subject-card:hover {
-    transform: translateY(-3px);
-    box-shadow:0 6px 12px rgba(0,0,0,0.15);
-  }
-  .subject-card a {
-    display:block;
-    text-decoration:none;
-    color:#ff8c42;
+  button {
+    margin-top:10px;
+    padding:8px 12px;
+    background:#ff8c42;
+    color:white;
+    border:none;
+    border-radius:8px;
     font-weight:bold;
-    padding:4px 0;
+    cursor:pointer;
   }
+  button:hover {
+    background:#e57c24;
+  }
+  h2 { color:#ff8c42; }
 </style>
 </head>
 <body>
 
 <header>
   <img src="../bannerLogo.png" alt="Pre-K Logo">
-  <h1>Pre-K Lessons</h1>
+  <h1>Math Lesson</h1>
 </header>
 
-<main id="lessons-container">
-  <!-- JS will generate all lessons -->
+<main>
+  <div id="game-container">
+    <h2 id="lesson-title">Lesson</h2>
+    <p id="lesson-desc">Loading game...</p>
+    <div id="game-content"></div>
+    <button id="next-btn">Next Question</button>
+  </div>
 </main>
 
-<script>
-// Pre-K subjects with very basic topics
-const subjects = [
-  { name: 'Math', folder: 'math' },
-  { name: 'Language', folder: 'language' },
-  { name: 'Science', folder: 'science' },
-  { name: 'Art', folder: 'art' }
-];
+<script type="module">
+  const urlParams = new URLSearchParams(window.location.search);
+  const lessonNumber = parseInt(urlParams.get('lesson')) || 1;
 
-const container = document.getElementById('lessons-container');
+  const lessonTitle = document.getElementById('lesson-title');
+  const lessonDesc = document.getElementById('lesson-desc');
+  const gameContent = document.getElementById('game-content');
+  const nextBtn = document.getElementById('next-btn');
 
-// Generate 180 lessons
-for(let lesson=1; lesson<=180; lesson++){
-  const lessonSection = document.createElement('div');
-  lessonSection.className='lesson-section';
-  lessonSection.innerHTML = `<h2>Lesson ${lesson}</h2>`;
+  lessonTitle.textContent = `Lesson ${lessonNumber}`;
 
-  const subjectsGrid = document.createElement('div');
-  subjectsGrid.className='subjects-grid';
+  // 10 game types (very basic Pre-K math)
+  const games = [
+    { name:'Counting Objects', generate: (level)=>`Count these ${level} objects: ${'🍎'.repeat(level)}` },
+    { name:'Number Recognition', generate: (level)=>`Click on the number: ${level}` },
+    { name:'Match Numbers to Objects', generate: (level)=>`Match ${level} objects to the number ${level}` },
+    { name:'Recognize Shapes', generate: ()=>`Identify the shapes: 🔺 🔵 ⬛ 🔶` },
+    { name:'Pattern Recognition', generate: (level)=>`Complete the pattern: ${'🔴🔵'.repeat(level)}` },
+    { name:'Compare Quantities', generate: (level)=>`Which group has more? ${'🍎'.repeat(level)} vs ${'🍎'.repeat(level+1)}` },
+    { name:'Sort by Color', generate: ()=>`Sort the objects by color: 🔴🟢🔴🟢` },
+    { name:'Trace Numbers', generate: (level)=>`Trace the numbers 1-${level}` },
+    { name:'Counting & Clicking', generate: (level)=>`Click on ${level} stars: ${'⭐'.repeat(level+1)}` },
+    { name:'Match Shapes to Names', generate: ()=>`Drag the shape to the correct name: 🔵 Circle` }
+  ];
 
-  subjects.forEach(sub=>{
-    const card = document.createElement('div');
-    card.className='subject-card';
-    card.innerHTML = `<a href="${sub.folder}/?lesson=${lesson}">${sub.name}</a>`;
-    subjectsGrid.appendChild(card);
+  // Determine current game type (6 lessons per game type)
+  let gameIndex;
+  if(lessonNumber <= 50){
+    gameIndex = Math.floor((lessonNumber-1)/5); // 10 game types * 5 lessons each = 50 lessons
+  } else {
+    gameIndex = Math.floor(Math.random() * 10); // last 10 lessons are review/testing
+  }
+
+  const currentGame = games[gameIndex];
+
+  lessonDesc.textContent = currentGame.name;
+
+  function loadGame(){
+    // level = number of objects/items = lesson number in the game type
+    let level = ((lessonNumber-1)%5)+1; // 1–5
+    if(lessonNumber>50) level = Math.floor(Math.random()*5)+1; // review = random level
+    gameContent.textContent = currentGame.generate(level);
+  }
+
+  loadGame();
+
+  nextBtn.addEventListener('click',()=>{
+    loadGame();
   });
-
-  lessonSection.appendChild(subjectsGrid);
-  container.appendChild(lessonSection);
-}
 </script>
 
 </body>
