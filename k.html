@@ -17,6 +17,7 @@
   ul.lesson-list li:hover { background: #e6f0ff; }
   li h3 { display: inline; color: #007BFF; margin: 0; font-weight: bold; }
   li p { margin: 4px 0 0 0; font-size: 0.9rem; color: #555; }
+  #lesson-container { margin-top: 30px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
 </style>
 </head>
 <body>
@@ -28,13 +29,16 @@
 <main class="grade-main">
   <h2>Kindergarten Lessons</h2>
   <ul id="lessons-list" class="lesson-list"></ul>
+
+  <!-- Container where lesson JS will render -->
+  <div id="lesson-container"></div>
 </main>
 
 <script>
-const gradeFolder = "k"; // Folder for this grade
+const gradeFolder = "k"; // folder for this grade
 const lessonsList = document.getElementById('lessons-list');
 
-// --- Generate lesson overview (all 180) ---
+// --- Generate 180 lessons overview ---
 function generateLessonSubjects(lessonNumber) {
   let reading = "Letters and simple words.";
   let math = "Counting numbers and recognizing shapes.";
@@ -57,40 +61,45 @@ function generateLessonSubjects(lessonNumber) {
   return { reading, math, science };
 }
 
-// --- Create all 180 lessons in a list ---
+// --- Create lesson list ---
 for (let i = 1; i <= 180; i++) {
   const subjects = generateLessonSubjects(i);
 
   const li = document.createElement('li');
-
-  // Click to load lesson JS dynamically
-  li.addEventListener('click', () => {
-    loadLessonJS(i);
-  });
-
   li.innerHTML = `<h3>Lesson ${i}</h3>
                   <p><strong>Reading:</strong> ${subjects.reading}<br>
                      <strong>Math:</strong> ${subjects.math}<br>
                      <strong>Science:</strong> ${subjects.science}</p>`;
+
+  // Click loads the static lesson JS dynamically
+  li.addEventListener('click', () => {
+    loadLessonJS(i);
+  });
 
   lessonsList.appendChild(li);
 }
 
 // --- Function to dynamically load lesson JS ---
 function loadLessonJS(lessonNumber) {
-  // Remove any previous lesson script
+  const lessonContainer = document.getElementById('lesson-container');
+  lessonContainer.innerHTML = ""; // clear previous lesson
+
+  // Remove previous script if exists
   const existingScript = document.getElementById('lesson-script');
   if (existingScript) existingScript.remove();
 
-  // Load new lesson JS
+  // Add new script
   const script = document.createElement('script');
   script.src = `${gradeFolder}/lesson${lessonNumber}.js`;
   script.id = 'lesson-script';
   document.body.appendChild(script);
 
-  // Optionally scroll to top for the lesson content
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Scroll to lesson
+  lessonContainer.scrollIntoView({ behavior: 'smooth' });
 }
+
+// --- Optional: Load first lesson on page load ---
+loadLessonJS(1);
 </script>
 
 </body>
