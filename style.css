@@ -1,12 +1,21 @@
-/* --- INDEX STYLES --- */
+/* ==========================
+   Banner
+========================== */
 .banner-container {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 20px 0;
 }
-.banner-logo { max-width: 400px; width: 90%; height: auto; }
+.banner-logo {
+  max-width: 400px;
+  width: 90%;
+  height: auto;
+}
 
+/* ==========================
+   Card Container
+========================== */
 #grades-container {
   display: flex;
   flex-wrap: wrap;
@@ -15,6 +24,9 @@
   margin: 40px 10px;
 }
 
+/* ==========================
+   Card Styling (Index + Lessons)
+========================== */
 .grade-card {
   flex: 0 0 200px;
   background: #ffffff;
@@ -23,52 +35,43 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.grade-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
-.grade-link { display:block; padding:20px; text-decoration:none; color:#333; }
-.grade-name { font-size:1.3em; color:#007BFF; margin:0; font-weight:bold; }
-
-/* --- LESSON STYLES (Scoped to lesson-container) --- */
-#lesson-container {
-  margin: 20px auto;
-  max-width: 800px;
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+.grade-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
-#lesson-container h2 { color:#007BFF; text-align:center; margin-bottom:20px; }
-#lesson-container h3 { color:#333; margin-bottom:10px; }
-#lesson-container p { font-size:1rem; color:#555; margin-bottom:10px; }
-
-#lesson-container .section-buttons {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:25px;
+/* Link inside card */
+.grade-link {
+  display: block;
+  padding: 20px;
+  text-decoration: none;
+  color: #333;
 }
 
-#lesson-container .lesson-button, #lesson-container .back-button {
-  padding: 15px 25px;
-  font-size:1.3rem;
-  margin:5px;
-  cursor:pointer;
-  border:none;
-  border-radius:8px;
-  background:#007BFF;
-  color:white;
-  transition: background 0.2s, transform 0.2s;
+/* Lesson / grade name */
+.grade-name {
+  margin: 0 0 10px 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #007BFF;
 }
 
-#lesson-container .lesson-button:hover, #lesson-container .back-button:hover {
-  background:#0056b3;
-  transform:translateY(-2px);
+/* Description */
+.grade-link p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
 }
 
-/* MOBILE */
-@media (max-width:600px){
-  .grade-card { flex:0 0 140px; }
-  .grade-name { font-size:1.1em; }
-  #lesson-container { padding:15px; }
-  #lesson-container .lesson-button, #lesson-container .back-button { padding:12px 18px; font-size:1.1rem; }
+/* Mobile */
+@media (max-width: 600px) {
+  .grade-card {
+    flex: 0 0 140px;
+  }
+  .grade-name {
+    font-size: 1.1em;
+  }
+  .grade-link p {
+    font-size: 0.8em;
+  }
 }
