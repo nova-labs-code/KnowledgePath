@@ -27,12 +27,8 @@ const totalQuestions = 10;
 let currentQuestion = 0;
 let score = 0;
 
-// Generate 10 unique numbers (1-5, no repeats)
-const numbersSet = new Set();
-while(numbersSet.size < totalQuestions) {
-  numbersSet.add(Math.floor(Math.random() * 5) + 1);
-}
-const questions = Array.from(numbersSet);
+// Generate 10 numbers (1–10) for questions, can repeat if range < 10
+const questions = Array.from({length: totalQuestions}, () => Math.floor(Math.random() * 10) + 1);
 
 const questionText = document.getElementById("questionText");
 const answerInput = document.getElementById("answer");
@@ -70,7 +66,7 @@ function goBack() {
   window.history.back();
 }
 
-// Start the game
+// Initialize first question
 showQuestion();
 </script>
 
