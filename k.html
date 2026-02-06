@@ -5,6 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kindergarten Lessons</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* Optional: style back button */
+.back-button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.back-button:hover {
+  background: #0056b3;
+}
+.lesson-section button {
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.lesson-section {
+  margin-top: 15px;
+}
+</style>
 </head>
 <body>
 
@@ -15,48 +39,45 @@
 
 <!-- Lessons List -->
 <div id="grades-container">
-  <!-- Generate 180 lessons manually or via copy/paste -->
-  <!-- Example: Lessons 1–10 -->
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(1); return false;"><h2 class="grade-name">Lesson 1</h2><p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(2); return false;"><h2 class="grade-name">Lesson 2</h2><p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(3); return false;"><h2 class="grade-name">Lesson 3</h2><p>Reading: Simple Words | Math: Shapes | Science: Weather</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(4); return false;"><h2 class="grade-name">Lesson 4</h2><p>Reading: Sight Words | Math: Addition 1–5 | Science: Animals</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(5); return false;"><h2 class="grade-name">Lesson 5</h2><p>Reading: Simple Sentences | Math: Counting | Science: Plants</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(6); return false;"><h2 class="grade-name">Lesson 6</h2><p>Reading: Letters E & F | Math: Count 1–10 | Science: Animals</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(7); return false;"><h2 class="grade-name">Lesson 7</h2><p>Reading: Words & Sentences | Math: Shapes & Patterns | Science: Plants</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(8); return false;"><h2 class="grade-name">Lesson 8</h2><p>Reading: Sight Words | Math: Addition | Science: Weather</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(9); return false;"><h2 class="grade-name">Lesson 9</h2><p>Reading: Letters G & H | Math: Subtraction 1–5 | Science: Animals</p></a></div>
-  <div class="grade-card"><a href="#" class="grade-link" onclick="loadLesson(10); return false;"><h2 class="grade-name">Lesson 10</h2><p>Reading: Simple Sentences | Math: Counting | Science: Plants</p></a></div>
-
-  <!-- Repeat this pattern for lessons 11–180 -->
+  <div class="grade-card">
+    <a href="#" class="grade-link" onclick="loadLesson(1); return false;">
+      <h2 class="grade-name">Lesson 1</h2>
+      <p>Reading: Letters A & B | Math: Count 1–5 | Science: Animals</p>
+    </a>
+  </div>
+  <div class="grade-card">
+    <a href="#" class="grade-link" onclick="loadLesson(2); return false;">
+      <h2 class="grade-name">Lesson 2</h2>
+      <p>Reading: Letters C & D | Math: Count 6–10 | Science: Plants</p>
+    </a>
+  </div>
+  <!-- Continue up to Lesson 180 -->
 </div>
 
 <!-- Lesson Container -->
 <div id="lesson-container" style="display:none;"></div>
 
 <script>
-// References
 const gradesContainer = document.getElementById('grades-container');
 const lessonContainer = document.getElementById('lesson-container');
 
-// Load lesson JS dynamically
 function loadLesson(number) {
-  // Hide lesson list
+  // Clear and hide lessons
   gradesContainer.style.display = "none";
   lessonContainer.style.display = "block";
-  lessonContainer.innerHTML = ""; // Clear previous lesson
+  lessonContainer.innerHTML = "";
 
-  // Remove old script if exists
+  // Remove old lesson script if exists
   const oldScript = document.getElementById('lesson-script');
   if(oldScript) oldScript.remove();
 
-  // Append new lesson JS
+  // Append new lesson script
   const script = document.createElement('script');
-  script.src = `k/lesson${number}.js`;  // <-- Exact JS link
+  script.src = `k/lesson${number}.js`; // Exact path to your lesson JS
   script.id = "lesson-script";
   document.body.appendChild(script);
 
-  // Add Back Button
+  // Add Back Button AFTER lesson content loads
   const backBtn = document.createElement('button');
   backBtn.textContent = "← Back to All Lessons";
   backBtn.className = "back-button";
@@ -69,8 +90,6 @@ function loadLesson(number) {
     }
   };
   lessonContainer.appendChild(backBtn);
-
-  lessonContainer.scrollIntoView({behavior:"smooth"});
 }
 </script>
 
