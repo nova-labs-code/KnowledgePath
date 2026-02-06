@@ -3,26 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KnowledgePath – K–12 Learning Hub</title>
+<title>Knowledge Path | K12 Learning</title>
+<link rel="icon" href="logos/favicon.ico">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1>KnowledgePath</h1>
-  <p>Your Complete K–12 Learning Journey</p>
-</header>
+<!-- Banner Logo -->
+<img src="logos/bannerLogo.png" alt="Knowledge Path" class="banner">
 
-<main>
-  <div id="grades-container"></div>
-</main>
+<h1>Knowledge Path</h1>
 
-<footer>
-  <p>&copy; 2026 KnowledgePath</p>
-</footer>
+<!-- Pre-K -->
+<div class="grade">
+  <h2>Pre-K</h2>
 
-<script src="data/grades.js"></script>
-<script src="scripts/gameHandler.js"></script>
-<script src="scripts/renderGrades.js"></script>
+  <div class="subject">
+    <h3>Math</h3>
+    <button class="game-btn" data-link="games/Pre-K/NumberFun.html">
+      <img src="logos/btnLogo.png" alt="Game">Number Fun
+    </button>
+    <button class="game-btn" data-link="games/Pre-K/ShapeExplorer.html">
+      <img src="logos/btnLogo.png" alt="Game">Shape Explorer
+    </button>
+  </div>
+
+  <div class="subject">
+    <h3>Language</h3>
+    <button class="game-btn" data-link="games/Pre-K/AlphabetAdventure.html">
+      <img src="logos/btnLogo.png" alt="Game">Alphabet Adventure
+    </button>
+    <button class="game-btn" data-link="games/Pre-K/WordMatch.html">
+      <img src="logos/btnLogo.png" alt="Game">Word Match
+    </button>
+  </div>
+
+  <div class="subject">
+    <h3>Science</h3>
+    <button class="game-btn" data-link="games/Pre-K/SensesGame.html">
+      <img src="logos/btnLogo.png" alt="Game">Senses Game
+    </button>
+    <button class="game-btn" data-link="games/Pre-K/AnimalExplorer.html">
+      <img src="logos/btnLogo.png" alt="Game">Animal Explorer
+    </button>
+  </div>
+</div>
+
+<!-- Add more grades in the same structure -->
+
+<script src="script.js"></script>
 </body>
 </html>
