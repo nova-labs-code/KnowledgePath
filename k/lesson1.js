@@ -1,6 +1,5 @@
-// k/lesson1.js - Kindergarten Lesson 1 (Interactive)
 const lessonContainer = document.getElementById('lesson-container');
-lessonContainer.innerHTML = ""; // Clear previous content
+lessonContainer.innerHTML = "";
 
 // --- Lesson Title ---
 const title = document.createElement('h2');
@@ -16,23 +15,18 @@ const readingDesc = document.createElement('p');
 readingDesc.textContent = "Click a letter to hear its sound!";
 lessonContainer.appendChild(readingDesc);
 
-// Letter buttons (A & B)
 const letters = ['A', 'B'];
 const lettersDiv = document.createElement('div');
-lettersDiv.style.marginBottom = "20px";
+lettersDiv.className = "section-buttons";
 
 letters.forEach(letter => {
   const btn = document.createElement('button');
   btn.textContent = letter;
-  btn.style.padding = "20px 25px";
-  btn.style.marginRight = "10px";
-  btn.style.fontSize = "1.5rem";
-  btn.style.cursor = "pointer";
-  btn.addEventListener('click', () => {
-    alert(`You clicked "${letter}"! Its sound is "${letter.toLowerCase()}"`);
-  });
+  btn.className = "lesson-button";
+  btn.addEventListener('click', () => alert(`You clicked "${letter}"! Its sound is "${letter.toLowerCase()}"`));
   lettersDiv.appendChild(btn);
 });
+
 lessonContainer.appendChild(lettersDiv);
 
 // --- Math Section ---
@@ -44,27 +38,20 @@ const mathDesc = document.createElement('p');
 mathDesc.textContent = "Click the correct number of apples:";
 lessonContainer.appendChild(mathDesc);
 
-// Number pad (1–5)
 const mathPad = document.createElement('div');
-mathPad.style.display = "flex";
-mathPad.style.gap = "10px";
-mathPad.style.marginBottom = "20px";
+mathPad.className = "section-buttons";
 
 for (let i = 1; i <= 5; i++) {
   const btn = document.createElement('button');
   btn.textContent = i;
-  btn.style.padding = "15px 20px";
-  btn.style.fontSize = "1.3rem";
-  btn.style.cursor = "pointer";
+  btn.className = "lesson-button";
   btn.addEventListener('click', () => {
-    if (i === 3) { // Correct answer example
-      alert("Correct! There are 3 apples 🍎");
-    } else {
-      alert("Try again!");
-    }
+    if (i === 3) alert("Correct! There are 3 apples 🍎");
+    else alert("Try again!");
   });
   mathPad.appendChild(btn);
 }
+
 lessonContainer.appendChild(mathPad);
 
 // --- Science Section ---
@@ -78,22 +65,15 @@ lessonContainer.appendChild(scienceDesc);
 
 const animals = ['Dog', 'Cat', 'Bird'];
 const animalsDiv = document.createElement('div');
-animalsDiv.style.display = "flex";
-animalsDiv.style.gap = "10px";
-animalsDiv.style.marginBottom = "30px";
+animalsDiv.className = "section-buttons";
 
 animals.forEach(animal => {
   const btn = document.createElement('button');
   btn.textContent = animal;
-  btn.style.padding = "12px 20px";
-  btn.style.fontSize = "1.2rem";
-  btn.style.cursor = "pointer";
+  btn.className = "lesson-button";
   btn.addEventListener('click', () => {
-    if (animal === 'Cat') {
-      alert("Correct! Cats say Meow 🐱");
-    } else {
-      alert("Try again!");
-    }
+    if (animal === 'Cat') alert("Correct! Cats say Meow 🐱");
+    else alert("Try again!");
   });
   animalsDiv.appendChild(btn);
 });
