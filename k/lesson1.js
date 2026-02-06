@@ -1,75 +1,101 @@
-// Kindergarten Lesson 1: Core Subjects Overview
-console.log("Kindergarten Lesson 1 loaded!");
-
-// Get lesson container
+// k/lesson1.js - Kindergarten Lesson 1 (Interactive)
 const lessonContainer = document.getElementById('lesson-container');
-lessonContainer.innerHTML = ""; // Clear previous content
+lessonContainer.innerHTML = "";
 
-// Lesson heading
-const lessonTitle = document.createElement('h2');
-lessonTitle.textContent = "Kindergarten Overview: Reading, Math & Science";
-lessonTitle.style.color = "#007BFF";
-lessonTitle.style.marginBottom = "20px";
+// --- Lesson Title ---
+const title = document.createElement('h2');
+title.textContent = "Lesson 1: Kindergarten Overview";
+lessonContainer.appendChild(title);
 
-// Intro paragraph
-const intro = document.createElement('p');
-intro.textContent = "Welcome to Kindergarten! In this lesson, we’ll give you a sneak peek of the three core subjects you'll explore this year: Reading, Math, and Science.";
-intro.style.fontSize = "1.1rem";
-intro.style.color = "#333";
-intro.style.marginBottom = "25px";
+// --- Reading Section ---
+const readingTitle = document.createElement('h3');
+readingTitle.textContent = "Reading: Letters A & B";
+lessonContainer.appendChild(readingTitle);
 
-// Core subjects
-const subjects = [
-  { name: "Reading", desc: "Learn letters, simple words, and basic reading skills to start your literacy journey." },
-  { name: "Math", desc: "Count numbers, recognize shapes, and explore patterns through fun activities." },
-  { name: "Science", desc: "Discover animals, plants, and simple experiments to explore the world around you." }
-];
+const readingDesc = document.createElement('p');
+readingDesc.textContent = "Click a letter to hear its sound!";
+lessonContainer.appendChild(readingDesc);
 
-// Create cards container
-const subjectsContainer = document.createElement('div');
-subjectsContainer.style.display = "grid";
-subjectsContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(220px, 1fr))";
-subjectsContainer.style.gap = "20px";
+// Letter buttons (A & B)
+const letters = ['A', 'B'];
+const lettersDiv = document.createElement('div');
+lettersDiv.style.marginBottom = "15px";
 
-subjects.forEach(subj => {
-  const card = document.createElement('div');
-  card.style.padding = "20px";
-  card.style.borderRadius = "12px";
-  card.style.background = "#f9f9f9";
-  card.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
-  
-  const subjName = document.createElement('h3');
-  subjName.textContent = subj.name;
-  subjName.style.color = "#007BFF";
-  subjName.style.marginBottom = "10px";
-
-  const subjDesc = document.createElement('p');
-  subjDesc.textContent = subj.desc;
-  subjDesc.style.color = "#333";
-  subjDesc.style.fontSize = "0.95rem";
-
-  card.appendChild(subjName);
-  card.appendChild(subjDesc);
-  subjectsContainer.appendChild(card);
+letters.forEach(letter => {
+  const btn = document.createElement('button');
+  btn.textContent = letter;
+  btn.style.padding = "12px 20px";
+  btn.style.marginRight = "10px";
+  btn.style.fontSize = "1.2rem";
+  btn.addEventListener('click', () => {
+    alert(`You clicked ${letter}! Its sound is "${letter.toLowerCase()}"`);
+  });
+  lettersDiv.appendChild(btn);
 });
 
-// Fun start button
-const startButton = document.createElement('button');
-startButton.textContent = "Start Your Kindergarten Adventure!";
-startButton.style.padding = "12px 25px";
-startButton.style.fontSize = "1rem";
-startButton.style.marginTop = "25px";
-startButton.style.cursor = "pointer";
-startButton.style.border = "none";
-startButton.style.borderRadius = "8px";
-startButton.style.backgroundColor = "#007BFF";
-startButton.style.color = "#fff";
-startButton.addEventListener('click', () => {
-  alert("Let's start exploring Reading, Math, and Science!");
+lessonContainer.appendChild(lettersDiv);
+
+// --- Math Section ---
+const mathTitle = document.createElement('h3');
+mathTitle.textContent = "Math: Count 1–5";
+lessonContainer.appendChild(mathTitle);
+
+const mathDesc = document.createElement('p');
+mathDesc.textContent = "Click the correct number of apples:";
+lessonContainer.appendChild(mathDesc);
+
+// Create a number pad (1-5)
+const mathPad = document.createElement('div');
+mathPad.style.display = "flex";
+mathPad.style.gap = "10px";
+mathPad.style.marginBottom = "15px";
+
+// Number pad interactive
+for (let i = 1; i <= 5; i++) {
+  const btn = document.createElement('button');
+  btn.textContent = i;
+  btn.style.padding = "12px 20px";
+  btn.style.fontSize = "1.2rem";
+  btn.addEventListener('click', () => {
+    if (i === 3) { // pretend correct answer: 3 apples
+      alert("Correct! There are 3 apples 🍎");
+    } else {
+      alert("Try again!");
+    }
+  });
+  mathPad.appendChild(btn);
+}
+
+lessonContainer.appendChild(mathPad);
+
+// --- Science Section ---
+const scienceTitle = document.createElement('h3');
+scienceTitle.textContent = "Science: Identify the Animal";
+lessonContainer.appendChild(scienceTitle);
+
+const scienceDesc = document.createElement('p');
+scienceDesc.textContent = "Click the animal that says 'Meow':";
+lessonContainer.appendChild(scienceDesc);
+
+// Animal buttons
+const animals = ['Dog', 'Cat', 'Bird'];
+const animalsDiv = document.createElement('div');
+animalsDiv.style.display = "flex";
+animalsDiv.style.gap = "10px";
+
+animals.forEach(animal => {
+  const btn = document.createElement('button');
+  btn.textContent = animal;
+  btn.style.padding = "12px 20px";
+  btn.style.fontSize = "1rem";
+  btn.addEventListener('click', () => {
+    if (animal === 'Cat') {
+      alert("Correct! Cats say Meow 🐱");
+    } else {
+      alert("Try again!");
+    }
+  });
+  animalsDiv.appendChild(btn);
 });
 
-// Append everything to container
-lessonContainer.appendChild(lessonTitle);
-lessonContainer.appendChild(intro);
-lessonContainer.appendChild(subjectsContainer);
-lessonContainer.appendChild(startButton);
+lessonContainer.appendChild(animalsDiv);
