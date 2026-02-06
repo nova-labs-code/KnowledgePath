@@ -11,7 +11,7 @@ a {
   text-decoration: none;
 }
 
-/* ==================== Top Navigation Bar ==================== */
+/* ==================== Top Bar ==================== */
 .top-bar {
   position: fixed;
   top: 0;
@@ -24,36 +24,50 @@ a {
   padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 1000;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* keep all links in one row */
+  overflow-x: auto;  /* allow horizontal scroll on small screens */
 }
 
-/* Logo in top bar */
+/* Logo */
 .top-logo {
   height: 40px;
+  cursor: pointer;
 }
 
-/* Container for links */
+/* Links container */
 .links-container {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
+  flex-wrap: nowrap;
 }
 
-/* Top bar links */
+/* Top links */
 .top-link {
   color: #fff;
   font-weight: bold;
-  padding: 5px 10px;
+  padding: 8px 15px;
   border-radius: 5px;
+  white-space: nowrap;
   transition: background 0.2s;
 }
 .top-link:hover {
   background-color: rgba(255,255,255,0.2);
 }
 
-/* Push page content below top bar */
+/* Push content below top bar */
 body > *:not(.top-bar) {
-  margin-top: 70px; /* adjust if top-bar height changes */
+  margin-top: 70px; /* adjust to top bar height */
+}
+
+/* ==================== Mobile / Scroll ==================== */
+@media (max-width: 768px) {
+  .top-bar {
+    padding: 8px 10px;
+  }
+  .top-link {
+    padding: 6px 10px;
+    font-size: 0.9em;
+  }
 }
 
 /* ==================== Banner ==================== */
