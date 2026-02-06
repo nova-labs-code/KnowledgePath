@@ -51,22 +51,15 @@ const gradesContainer = document.getElementById('grades-container');
 const lessonContainer = document.getElementById('lesson-container');
 
 function loadLesson(number) {
-  // Clear previous lesson
-  lessonContainer.innerHTML = "";
-  lessonContainer.style.display = "block";
   gradesContainer.style.display = "none";
+  lessonContainer.style.display = "block";
+  lessonContainer.innerHTML = ""; // clear previous content
 
-  // Remove old lesson script if it exists
-  const oldScript = document.getElementById('lesson-script');
-  if(oldScript) oldScript.remove();
+  // Call the render function of the lesson
+  if(number === 1 && typeof renderLesson1 === "function") renderLesson1(lessonContainer);
+  // Add more conditions for other lessons: renderLesson2, renderLesson3, etc.
 
-  // Dynamically load lesson JS
-  const script = document.createElement('script');
-  script.src = `k/lesson${number}.js`; // exact JS link
-  script.id = 'lesson-script';
-  document.body.appendChild(script);
-
-  // Add Back Button AFTER lesson loads
+  // Back Button
   const backBtn = document.createElement('button');
   backBtn.textContent = "← Back to All Lessons";
   backBtn.className = "back-button";
@@ -74,12 +67,18 @@ function loadLesson(number) {
     lessonContainer.style.display = "none";
     gradesContainer.style.display = "flex";
     lessonContainer.innerHTML = "";
-    // Remove lesson script
-    if(document.getElementById('lesson-script')) {
-      document.getElementById('lesson-script').remove();
-    }
   };
   lessonContainer.appendChild(backBtn);
+
+  // Dynamically load lesson script only if not already loaded
+  if(!document.getElementById(`lesson-script-${number}`)) {
+    const script = document.createElement('script');
+    script.src = `k/lesson${number}.js`;
+    script.id = `lesson-script-${number}`;
+    document.body.appendChild(script);
+  }
+
+  lessonContainer.scrollIntoView({behavior:"smooth"});
 }
 </script>
 
