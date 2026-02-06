@@ -11,6 +11,7 @@ a {
   text-decoration: none;
 }
 
+/* Top Bar */
 .top-bar {
   position: fixed;
   top: 0;
@@ -34,59 +35,37 @@ a {
 
 /* Scroll wrapper */
 .scroll-wrapper {
-  display: flex;
-  align-items: center;
   flex: 1;
-  overflow: hidden;
-  position: relative;
+  overflow-x: auto;
+  white-space: nowrap; /* Force one line */
 }
 
 /* Links container */
 .links-container {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
+  display: inline-flex;  /* Keep links in one horizontal line */
   gap: 8px;
   padding: 5px 0;
 }
 
-/* Hide native scrollbar */
-.links-container::-webkit-scrollbar { display: none; }
-.links-container { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* Scroll buttons */
-.scroll-btn {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  flex-shrink: 0;
-  margin: 0 5px;
-  user-select: none;
-  transition: background 0.2s;
-}
-.scroll-btn:hover {
-  background: rgba(255,255,255,0.4);
-}
-
-/* Top links */
+/* Links */
 .top-link {
+  display: inline-block; /* Prevent each link from being block */
   color: #fff;
   font-weight: bold;
   padding: 6px 12px;
   border-radius: 5px;
-  white-space: nowrap;
+  white-space: nowrap;   /* Keep text on one line */
   flex-shrink: 0;
+  text-decoration: none;
   transition: background 0.2s;
 }
 .top-link:hover {
   background-color: rgba(255,255,255,0.2);
 }
+
+/* Hide scrollbar */
+.links-container::-webkit-scrollbar { display: none; }
+.links-container { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* Push content below top bar */
 body > *:not(.top-bar) {
@@ -98,10 +77,6 @@ body > *:not(.top-bar) {
   .top-link {
     padding: 5px 8px;
     font-size: 0.9em;
-  }
-  .scroll-btn {
-    padding: 5px 8px;
-    font-size: 16px;
   }
 }
 
