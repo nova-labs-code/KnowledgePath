@@ -3,214 +3,176 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pre-K Math Lesson</title>
+<title>Pre-K Math</title>
 <link rel="icon" href="../favicon.ico">
 <link rel="stylesheet" href="../style.css">
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
-    margin:0;
-    padding:0;
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-  }
-  header {
-    background:#ffda9e;
-    text-align:center;
-    padding:20px 10px;
-  }
-  header img { width:180px; margin-bottom:10px; }
-  header h1 { margin:0; font-size:1.8em; color:#333; }
-  main {
-    flex:1;
-    padding:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-  }
-  #game-container {
-    background:white;
-    border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
-    padding:20px;
-    max-width:500px;
-    width:100%;
-    text-align:center;
-  }
-  h2 { color:#ff8c42; }
-  .objects { display:flex; justify-content:center; flex-wrap:wrap; margin-top:10px; }
-  .object { font-size:2em; margin:5px; cursor:pointer; }
-  #message { margin-top:10px; font-weight:bold; color:#ff8c42; }
+body {
+  font-family: Arial, sans-serif;
+  background:#f9f9f9;
+  margin:0;
+}
+
+header {
+  background:#ffda9e;
+  text-align:center;
+  padding:20px;
+}
+
+main {
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+#game {
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  padding:20px;
+  max-width:420px;
+  width:100%;
+  text-align:center;
+}
+
+.objects span {
+  font-size:2.2em;
+  margin:6px;
+}
+
+input {
+  font-size:1.2em;
+  padding:6px;
+  width:80px;
+  text-align:center;
+}
+
+button {
+  margin-top:10px;
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  background:#ff8c42;
+  color:#fff;
+  font-weight:bold;
+}
+
+#msg {
+  margin-top:10px;
+  font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <img src="../bannerLogo.png" alt="Pre-K Logo">
-  <h1>Math Lesson</h1>
+  <h1>Pre-K Math</h1>
 </header>
 
 <main>
-  <div id="game-container">
-    <h2 id="lesson-title">Lesson</h2>
-    <p id="lesson-desc">Loading game...</p>
-    <div id="game-content" class="objects"></div>
-    <div id="message"></div>
+  <div id="game">
+    <h2 id="title"></h2>
+    <p id="instruction"></p>
+    <div id="content"></div>
+    <div id="msg"></div>
   </div>
 </main>
 
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const lessonNumber = parseInt(urlParams.get('lesson')) || 1;
+const lesson = Number(new URLSearchParams(location.search).get("lesson")) || 1;
+document.getElementById("title").textContent = `Lesson ${lesson}`;
 
-const lessonTitle = document.getElementById('lesson-title');
-const lessonDesc = document.getElementById('lesson-desc');
-const gameContent = document.getElementById('game-content');
-const message = document.getElementById('message');
+const content = document.getElementById("content");
+const msg = document.getElementById("msg");
+const instruction = document.getElementById("instruction");
 
-lessonTitle.textContent = `Lesson ${lessonNumber}`;
+const level = Math.min(5, ((lesson - 1) % 5) + 1);
 
-// ---------------- Pre-K Interactive Games ----------------
+// ---------- GAME FUNCTIONS ----------
+
+function typingCount() {
+  content.innerHTML = `<div class="objects">${"🍎".repeat(level)}</div>
+    <p>Type how many apples</p>
+    <input id="answer" type="number" />
+    <button onclick="check(${level})">Check</button>`;
+  window.check = (correct) => {
+    msg.textContent =
+      Number(document.getElementById("answer").value) === correct
+        ? "Great job!"
+        : "Try again!";
+  };
+}
+
+function typingNumber() {
+  content.innerHTML = `
+    <p>Type this number:</p>
+    <div style="font-size:3em">${level}</div>
+    <input id="answer" type="number" />
+    <button onclick="check(${level})">Check</button>`;
+  window.check = (correct) => {
+    msg.textContent =
+      Number(document.getElementById("answer").value) === correct
+        ? "Correct!"
+        : "Try again!";
+  };
+}
+
+function compareTyping() {
+  const left = level;
+  const right = level + 1;
+  content.innerHTML = `
+    <div class="objects">
+      ${"⭐".repeat(left)} &nbsp; ${"⭐".repeat(right)}
+    </div>
+    <p>Type which side has more (left or right)</p>
+    <input id="answer" />
+    <button onclick="check()">Check</button>`;
+  window.check = () => {
+    msg.textContent =
+      document.getElementById("answer").value.toLowerCase() === "right"
+        ? "Correct!"
+        : "Try again!";
+  };
+}
+
+function clickShapes() {
+  instruction.textContent = "Click all the circles";
+  content.innerHTML = "";
+  ["🔵","🔺","🔵","⬛"].forEach(s=>{
+    const el=document.createElement("span");
+    el.textContent=s;
+    el.onclick=()=>msg.textContent=(s==="🔵")?"Good!":"Try another";
+    content.appendChild(el);
+  });
+}
+
+function patternClick() {
+  content.innerHTML = `
+    <div class="objects">🔴 🔵 🔴 🔵 ?</div>
+    <button onclick="msg.textContent='Correct!'">🔴</button>
+    <button onclick="msg.textContent='Try again!'">🔵</button>`;
+}
+
+// ---------- GAME SELECTION ----------
+
 const games = [
-  {
-    name:'Counting Objects',
-    play: (level)=>{
-      gameContent.innerHTML='';
-      message.textContent='Click on each object to count!';
-      let count = 0;
-      for(let i=0;i<level;i++){
-        const obj = document.createElement('span');
-        obj.className='object';
-        obj.textContent='🍎';
-        obj.addEventListener('click',()=>{
-          count++;
-          obj.style.opacity=0.5;
-          if(count===level){
-            message.textContent='Great! You counted all objects!';
-          }
-        });
-        gameContent.appendChild(obj);
-      }
-    }
-  },
-  {
-    name:'Number Recognition',
-    play: (level)=>{
-      gameContent.innerHTML='';
-      message.textContent='Click the correct number';
-      const correctNumber = level;
-      const numbers = [];
-      while(numbers.length<3){
-        const n = Math.floor(Math.random()*10)+1;
-        if(!numbers.includes(n)) numbers.push(n);
-      }
-      numbers[Math.floor(Math.random()*3)] = correctNumber; // insert correct
-      numbers.forEach(n=>{
-        const btn = document.createElement('span');
-        btn.className='object';
-        btn.textContent=n;
-        btn.addEventListener('click',()=>{
-          if(n===correctNumber){
-            message.textContent='Correct!';
-          } else { message.textContent='Try again!'; }
-        });
-        gameContent.appendChild(btn);
-      });
-    }
-  },
-  {
-    name:'Compare Quantities',
-    play: (level)=>{
-      gameContent.innerHTML='';
-      const left = level;
-      const right = level+1;
-      message.textContent='Click the group with more';
-      const leftGroup = document.createElement('div');
-      const rightGroup = document.createElement('div');
-      leftGroup.className='object';
-      rightGroup.className='object';
-      leftGroup.textContent='🍎'.repeat(left);
-      rightGroup.textContent='🍎'.repeat(right);
-      leftGroup.addEventListener('click',()=>message.textContent= left>right ? 'Correct!' : 'Try again!');
-      rightGroup.addEventListener('click',()=>message.textContent= right>left ? 'Correct!' : 'Try again!');
-      gameContent.appendChild(leftGroup);
-      gameContent.appendChild(rightGroup);
-    }
-  },
-  {
-    name:'Pattern Recognition',
-    play: (level)=>{
-      gameContent.innerHTML='';
-      message.textContent='Click the correct shape to complete the pattern';
-      const pattern = ['🔴','🔵'];
-      for(let i=0;i<level;i++){
-        const span = document.createElement('span');
-        span.className='object';
-        span.textContent=pattern[i%2];
-        gameContent.appendChild(span);
-      }
-      const next = document.createElement('span');
-      next.className='object';
-      next.textContent='?';
-      gameContent.appendChild(next);
-      ['🔴','🔵'].forEach(choice=>{
-        const btn = document.createElement('span');
-        btn.className='object';
-        btn.textContent=choice;
-        btn.addEventListener('click',()=>{
-          if(choice==='🔴') message.textContent='Correct!';
-          else message.textContent='Try again!';
-        });
-        gameContent.appendChild(btn);
-      });
-    }
-  },
-  {
-    name:'Recognize Shapes',
-    play: ()=>{
-      gameContent.innerHTML='';
-      message.textContent='Click all triangles';
-      ['🔺','🔵','⬛','🔺'].forEach(shape=>{
-        const obj = document.createElement('span');
-        obj.className='object';
-        obj.textContent=shape;
-        obj.addEventListener('click',()=>{
-          if(shape==='🔺') message.textContent='Correct!';
-          else message.textContent='Try another!';
-        });
-        gameContent.appendChild(obj);
-      });
-    }
-  }
+  typingCount,
+  typingNumber,
+  compareTyping,
+  clickShapes,
+  patternClick
 ];
 
-// ---------------- Select Game ----------------
-let gameIndex;
-let level = 1;
+// 50 lessons learning, 10 review
+const gameIndex =
+  lesson <= 50
+    ? Math.floor((lesson - 1) / 10)
+    : Math.floor(Math.random() * games.length);
 
-if(lessonNumber <= 50){
-  gameIndex = Math.floor((lessonNumber-1)/5); // 5 lessons per game type
-  level = ((lessonNumber-1)%5)+1;
-  if(gameIndex>=games.length) gameIndex = games.length-1;
-} else {
-  // last 10 lessons = review
-  gameIndex = Math.floor(Math.random()*games.length);
-  level = Math.floor(Math.random()*5)+1;
-}
-
-const currentGame = games[gameIndex];
-lessonDesc.textContent = currentGame.name;
-
-// ---------------- Play Function ----------------
-function loadGame(){
-  currentGame.play(level);
-}
-
-// Initial load
-loadGame();
+instruction.textContent = "Answer the question:";
+games[gameIndex]();
 </script>
 
 </body>
