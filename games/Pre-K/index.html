@@ -1,1 +1,59 @@
-hugs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-K Lessons - Knowledge Path</title>
+  <link rel="icon" href="../../logos/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+  <!-- Banner logo -->
+  <div class="banner-container">
+    <img src="../../logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
+  </div>
+
+  <!-- Home button -->
+  <div style="text-align:center; margin: 20px;">
+    <a href="../../index.html">
+      <img src="../../logos/btnLogo.png" alt="Home" style="width:60px; height:auto;">
+    </a>
+  </div>
+
+  <h1 style="text-align:center; margin-bottom: 30px;">Pre-K Lessons</h1>
+
+  <!-- Container for lessons -->
+  <div id="lessons-container"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const totalLessons = 180; // number of Pre-K lessons
+      const container = document.getElementById("lessons-container");
+
+      for (let lesson = 1; lesson <= totalLessons; lesson++) {
+        const card = document.createElement("div");
+        card.classList.add("grade-card"); // uses homepage card styles
+
+        const link = document.createElement("a");
+        link.href = `lesson${lesson}.html`; // each lesson page decides which game is played
+        link.classList.add("grade-link");
+
+        const name = document.createElement("h2");
+        name.textContent = `Lesson ${lesson}`;
+        name.classList.add("grade-name");
+
+        const desc = document.createElement("p");
+        desc.textContent = "Click to start the lesson and play one of its games.";
+        desc.classList.add("grade-desc");
+
+        link.appendChild(name);
+        link.appendChild(desc);
+        card.appendChild(link);
+        container.appendChild(card);
+      }
+    });
+  </script>
+
+</body>
+</html>
