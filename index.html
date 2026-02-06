@@ -1,48 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Knowledge Path</title>
-<link rel="icon" href="logos/favicon.ico">
-  <!-- iOS Add to Home Screen -->
-<link rel="apple-touch-icon" href="logos/favicon.ico">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Knowledge Path">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Path</title>
+  <link rel="icon" href="logos/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Banner logo -->
-<img src="logos/bannerLogo.png" alt="Knowledge Path" class="banner">
-
-<!-- Pre-K Example -->
-<div class="grade">
-  <h2>Pre-K</h2>
-
-  <div class="subject">
-    <h3>Math</h3>
-    <button class="game-btn" data-link="games/Pre-K/NumberFun.html">Number Fun</button>
-    <button class="game-btn" data-link="games/Pre-K/ShapeExplorer.html">Shape Explorer</button>
+  <!-- Banner logo -->
+  <div class="banner-container">
+    <img src="logos/bannerLogo.png" alt="Knowledge Path Banner" class="banner-logo">
   </div>
 
-  <div class="subject">
-    <h3>Language</h3>
-    <button class="game-btn" data-link="games/Pre-K/AlphabetAdventure.html">Alphabet Adventure</button>
-    <button class="game-btn" data-link="games/Pre-K/WordMatch.html">Word Match</button>
-  </div>
+  <!-- Container for grade links -->
+  <div id="grades-container"></div>
 
-  <div class="subject">
-    <h3>Science</h3>
-    <button class="game-btn" data-link="games/Pre-K/SensesGame.html">Senses Game</button>
-    <button class="game-btn" data-link="games/Pre-K/AnimalExplorer.html">Animal Explorer</button>
-  </div>
-</div>
-
-<!-- Add more grades in the same format -->
-
-<script src="script.js"></script>
-<script src="topbar.js"></script>
+  <script src="render.js"></script>
 </body>
 </html>
