@@ -69,8 +69,8 @@ science.innerHTML = `
 
 [
   { emoji: "🌵", sound: "Cactus" },
-  { emoji: "🌼", sound: "Flower" },
-  { emoji: "🌳", sound: "Tree" }
+  { emoji: "🌼", sound: "Flowers" },
+  { emoji: "🌳", sound: "Trees" }
 ].forEach(item => {
   const btn = document.createElement("button");
   btn.textContent = item.emoji;
